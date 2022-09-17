@@ -37,6 +37,7 @@ export default function Auth({navigation}) {
 
   useEffect(() => {
     GoogleSignin.configure({
+      offlineAccess: false,
       androidClientId: GOOGLE_CLIENT_ID,
       iosClientId: GOOGLE_CLIENT_ID,
     });
