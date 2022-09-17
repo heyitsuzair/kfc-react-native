@@ -40,8 +40,9 @@ export default function Auth({navigation}) {
       androidClientId: GOOGLE_CLIENT_ID,
       iosClientId: GOOGLE_CLIENT_ID,
     });
+
     //eslint-disable-next-line
-  }, [navigation]);
+  }, []);
 
   return (
     <View>
