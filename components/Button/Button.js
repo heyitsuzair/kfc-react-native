@@ -1,4 +1,10 @@
-import {Dimensions, Pressable, StyleSheet, Text} from 'react-native';
+import {
+  Dimensions,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  Touchable,
+} from 'react-native';
 import React from 'react';
 
 export default function Button({text, action, color, width}) {
@@ -18,8 +24,11 @@ export default function Button({text, action, color, width}) {
   });
 
   return (
-    <Pressable style={styles.parent} onPress={() => action()}>
+    <TouchableOpacity
+      activeOpacity={0.7}
+      style={styles.parent}
+      onPress={action}>
       <Text style={styles.text}>{text}</Text>
-    </Pressable>
+    </TouchableOpacity>
   );
 }
