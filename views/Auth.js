@@ -1,16 +1,16 @@
 import {View, Image, StyleSheet, Dimensions} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Button from '../components/Button/Button';
 import {
   GoogleSignin,
-  GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import {GOOGLE_CLIENT_ID} from '@env';
+import authContext from '../context/auth/AuthContext';
 
-export default function Auth() {
-  //state for sign in user
-  const [user, setUser] = useState(null);
+export default function Auth({navigation}) {
+  // setUser to set the user info in state
+  const {setUser} = useContext(authContext);
 
   // when someone touches login with google
   const login = async () => {
@@ -19,6 +19,7 @@ export default function Auth() {
       const userInfo = await GoogleSignin.signIn();
       // setting user info in state
       setUser(userInfo.user);
+      navigation.navigate('home');
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
@@ -40,7 +41,7 @@ export default function Auth() {
       iosClientId: GOOGLE_CLIENT_ID,
     });
     //eslint-disable-next-line
-  }, []);
+  }, [navigation]);
 
   return (
     <View>
@@ -80,5 +81,6 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height / 2,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
   },
 });
