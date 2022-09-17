@@ -1,5 +1,7 @@
 {
   "name": "KFC",
-  "displayName": "KFC By UZAIR",
+  "displayName": "KFC",
   "plugins": ["@react-native-google-signin/google-signin"]
+
+
 }

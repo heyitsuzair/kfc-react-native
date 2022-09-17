@@ -1,4 +1,4 @@
-package com.kfc;
+package com.kfc.uzair;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

@@ -1,4 +1,4 @@
-package com.kfc.newarchitecture;
+package com.kfc.uzair.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.kfc.BuildConfig;
-import com.kfc.newarchitecture.components.MainComponentsRegistry;
-import com.kfc.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.kfc.uzair.BuildConfig;
+import com.kfc.uzair.newarchitecture.components.MainComponentsRegistry;
+import com.kfc.uzair.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

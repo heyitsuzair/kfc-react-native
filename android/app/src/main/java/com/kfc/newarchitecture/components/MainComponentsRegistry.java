@@ -1,4 +1,4 @@
-package com.kfc.newarchitecture.components;
+package com.kfc.uzair.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;
