@@ -1,4 +1,11 @@
-import {View, Image, StyleSheet, Dimensions, ScrollView} from 'react-native';
+import {
+  View,
+  Image,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  Pressable,
+} from 'react-native';
 import React from 'react';
 
 export default function Home({navigation}) {
@@ -10,14 +17,18 @@ export default function Home({navigation}) {
           style={styles.img}
         />
         <View style={styles.cards}>
-          <Image
-            style={styles.cardImg}
-            source={require('../assets/images/deal1.png')}
-          />
-          <Image
-            style={styles.cardImg}
-            source={require('../assets/images/deal1.png')}
-          />
+          <Pressable onPress={() => navigation.navigate('singleProduct')}>
+            <Image
+              style={styles.cardImg}
+              source={require('../assets/images/deal1.png')}
+            />
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate('singleProduct')}>
+            <Image
+              style={styles.cardImg}
+              source={require('../assets/images/deal1.png')}
+            />
+          </Pressable>
         </View>
       </View>
     </ScrollView>
