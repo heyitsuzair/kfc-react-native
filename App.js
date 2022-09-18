@@ -8,8 +8,7 @@
 
 import React from 'react';
 import AuthState from './context/auth/AuthState';
-
-import Navigation from './navigation/index';
+import Navigation from './navigation/tabNavigation';
 
 const App = () => {
   return (

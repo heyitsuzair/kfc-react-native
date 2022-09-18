@@ -6,11 +6,15 @@ import {
   ScrollView,
   Pressable,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
+import Container from 'toastify-react-native';
 
 export default function Home({navigation}) {
   return (
     <ScrollView>
+      <View>
+        <Container duration={2000} animationStyle="zoomInOut" position="top" />
+      </View>
       <View>
         <Image
           source={require('../assets/images/deal1.png')}

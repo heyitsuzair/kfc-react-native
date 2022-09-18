@@ -1,5 +1,5 @@
 import {View, Image, StyleSheet, Dimensions} from 'react-native';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Button from '../components/Button/Button';
 import {
   GoogleSignin,
@@ -7,6 +7,7 @@ import {
 } from '@react-native-google-signin/google-signin';
 import {GOOGLE_CLIENT_ID} from '@env';
 import authContext from '../context/auth/AuthContext';
+import {Toast} from 'toastify-react-native';
 
 export default function Auth({navigation}) {
   // setUser to set the user info in state
@@ -17,6 +18,7 @@ export default function Auth({navigation}) {
     try {
       await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
       const userInfo = await GoogleSignin.signIn();
+      Toast.success('You Are Logged In!');
       // setting user info in state
       setUser(userInfo.user);
       navigation.navigate('home');
@@ -24,13 +26,16 @@ export default function Auth({navigation}) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {
+        Toast.warn('In Progress...');
         // operation (e.g. sign in) is in progress already
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         // play services not available or outdated
-        alert('Play Services Are Not Available Or Outdated!');
+        Toast.warn('Play Services Are Not Available Or Outdated!');
       } else {
-        console.warn('Something Went Wrong Please Try Again!');
         // some other error happened
+        Toast.error(
+          'Something Went Wrong. Please Check Your Internet Connection And Try Again!',
+        );
       }
     }
   };
@@ -41,7 +46,6 @@ export default function Auth({navigation}) {
       androidClientId: GOOGLE_CLIENT_ID,
       iosClientId: GOOGLE_CLIENT_ID,
     });
-
     //eslint-disable-next-line
   }, []);
 
