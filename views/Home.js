@@ -10,10 +10,17 @@ import React, {useEffect} from 'react';
 import Container from 'toastify-react-native';
 
 export default function Home({navigation}) {
+  useEffect(() => {
+    navigation.addListener('beforeRemove', e => {
+      e.preventDefault();
+    });
+    //eslint-disable-next-line
+  }, []);
+
   return (
     <ScrollView>
       <View>
-        <Container duration={2000} animationStyle="zoomInOut" position="top" />
+        <Container duration={2000} position="top" />
       </View>
       <View>
         <Image

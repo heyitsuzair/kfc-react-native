@@ -8,12 +8,12 @@
 
 import React from 'react';
 import AuthState from './context/auth/AuthState';
-import Navigation from './navigation/tabNavigation';
+import MainNav from './navigation/index';
 
 const App = () => {
   return (
     <AuthState>
-      <Navigation />
+      <MainNav />
     </AuthState>
   );
 };

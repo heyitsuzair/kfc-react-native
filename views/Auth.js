@@ -9,6 +9,8 @@ import {GOOGLE_CLIENT_ID} from '@env';
 import authContext from '../context/auth/AuthContext';
 import {Toast} from 'toastify-react-native';
 
+import Container from 'toastify-react-native';
+
 export default function Auth({navigation}) {
   // setUser to set the user info in state
   const {setUser} = useContext(authContext);
@@ -16,17 +18,18 @@ export default function Auth({navigation}) {
   // when someone touches login with google
   const login = async () => {
     try {
-      await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
+      await GoogleSignin.hasPlayServices({
+        showPlayServicesUpdateDialog: true,
+      });
       const userInfo = await GoogleSignin.signIn();
-      Toast.success('You Are Logged In!');
       // setting user info in state
       setUser(userInfo.user);
-      navigation.navigate('home');
+      navigation.navigate('tabs', {screen: 'home'});
+      Toast.success('You Are Logged In!');
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {
-        Toast.warn('In Progress...');
         // operation (e.g. sign in) is in progress already
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         // play services not available or outdated
@@ -46,11 +49,15 @@ export default function Auth({navigation}) {
       androidClientId: GOOGLE_CLIENT_ID,
       iosClientId: GOOGLE_CLIENT_ID,
     });
+
     //eslint-disable-next-line
   }, []);
 
   return (
     <View>
+      <View>
+        <Container duration={2000} position="top" />
+      </View>
       <View style={styles.parent}>
         <Image
           source={require('../assets/images/logo.png')}
