@@ -27,6 +27,15 @@ export default function SingleProduct({navigation}) {
     alert('hello');
   };
 
+  // handle when someone clicks on plus or minus
+  const handleQuantity = condition => {
+    if (condition === '+') {
+      alert('Plus');
+    } else {
+      alert('Minus');
+    }
+  };
+
   return (
     <>
       <ScrollView style={styles.parent}>
@@ -63,13 +72,13 @@ export default function SingleProduct({navigation}) {
       </ScrollView>
       <View style={styles.fixedBar}>
         <View style={styles.quantity}>
-          <Pressable>
+          <Pressable onPress={() => handleQuantity('-')}>
             <List.Icon icon="minus" color={colors.primary} />
           </Pressable>
           <Text icon="minus" color={colors.primary}>
             1
           </Text>
-          <Pressable>
+          <Pressable onPress={() => handleQuantity('+')}>
             <List.Icon icon="plus" color={colors.primary} />
           </Pressable>
         </View>
