@@ -37,9 +37,7 @@ export default function Auth({navigation}) {
         Toast.warn('Play Services Are Not Available Or Outdated!');
       } else {
         // some other error happened
-        Toast.error(
-          'Something Went Wrong. Please Check Your Internet Connection And Try Again!',
-        );
+        Toast.error('Something Went Wrong. PleaseTry Again!');
       }
     }
   };

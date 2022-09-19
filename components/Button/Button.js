@@ -17,7 +17,7 @@ export default function Button({text, action, color, width, icon}) {
       padding: 20,
       textAlign: 'center',
       fontSize: 20,
-      fontWeight: '700',
+      fontFamily: 'Poppins-SemiBold',
     },
   });
 

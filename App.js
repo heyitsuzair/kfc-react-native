@@ -10,13 +10,16 @@ import React from 'react';
 import {StatusBar} from 'react-native';
 import colors from './colors';
 import AuthState from './context/auth/AuthState';
+import AddonState from './context/addon/AddonState';
 import MainNav from './navigation/index';
 
 const App = () => {
   return (
     <AuthState>
-      <StatusBar backgroundColor={colors.primary} />
-      <MainNav />
+      <AddonState>
+        <StatusBar backgroundColor={colors.primary} />
+        <MainNav />
+      </AddonState>
     </AuthState>
   );
 };
