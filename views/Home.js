@@ -59,6 +59,6 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width / 2.2,
     resizeMode: 'contain',
     marginBottom: 10,
-    height: Dimensions.get('window').height / 5,
+    height: Dimensions.get('window').height / 3,
   },
 });

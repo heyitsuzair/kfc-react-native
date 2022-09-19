@@ -8,8 +8,9 @@ import {
 import {GOOGLE_CLIENT_ID} from '@env';
 import authContext from '../context/auth/AuthContext';
 import {Toast} from 'toastify-react-native';
-
 import Container from 'toastify-react-native';
+import colors from '../colors/index';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function Auth({navigation}) {
   // setUser to set the user info in state
@@ -70,6 +71,14 @@ export default function Auth({navigation}) {
           text={'Login With Google'}
           action={login}
           color="primary"
+          icon={
+            <MaterialCommunityIcons
+              name="google"
+              style={{backgroundColor: 'white', borderRadius: 50, padding: 10}}
+              color={colors.primary}
+              size={25}
+            />
+          }
         />
       </View>
     </View>
@@ -80,7 +89,7 @@ const styles = StyleSheet.create({
   parent: {
     flexDirection: 'row',
     justifyContent: 'center',
-    backgroundColor: '#f0f2f5',
+    backgroundColor: colors.bg,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height / 2,
     alignItems: 'center',

@@ -1,22 +1,20 @@
-import {
-  Dimensions,
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  Touchable,
-} from 'react-native';
+import {Dimensions, TouchableOpacity, StyleSheet, Text} from 'react-native';
 import React from 'react';
+import colors from '../../colors';
 
-export default function Button({text, action, color, width}) {
+export default function Button({text, action, color, width, icon}) {
   const styles = StyleSheet.create({
     parent: {
-      backgroundColor: color === 'primary' ? '#e4002b' : 'black',
+      backgroundColor: color === 'primary' ? colors.primary : 'black',
       borderRadius: 8,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: width === 'full' ? Dimensions.get('window').width - 100 : '',
     },
     text: {
       color: 'white',
       padding: 20,
-      width: width === 'full' ? Dimensions.get('window').width - 100 : '',
       textAlign: 'center',
       fontSize: 20,
       fontWeight: '700',
@@ -29,6 +27,7 @@ export default function Button({text, action, color, width}) {
       style={styles.parent}
       onPress={action}>
       <Text style={styles.text}>{text}</Text>
+      {icon}
     </TouchableOpacity>
   );
 }

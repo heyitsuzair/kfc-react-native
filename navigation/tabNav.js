@@ -3,18 +3,18 @@ import Home from '../views/Home';
 import Menu from '../views/Menu';
 import Bucket from '../views/Bucket';
 import Logout from '../views/Logout';
-
+import colors from '../colors';
 const Tab = createMaterialBottomTabNavigator();
 
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-export default function Tabs({navigation}) {
+export default function Tabs() {
   return (
     <Tab.Navigator
       barStyle={{
         backgroundColor: 'white',
       }}
-      activeColor="#e4002b"
+      activeColor={colors.primary}
       shifting={false}>
       <Tab.Screen
         name="home"
