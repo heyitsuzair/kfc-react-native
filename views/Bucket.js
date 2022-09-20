@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 2,
     borderBottomColor: colors.bg,
     borderBottomWidth: 2,
-    marginTop: -274,
+    marginTop: -270,
   },
   finish: {
     color: 'black',
