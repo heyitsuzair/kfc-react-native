@@ -19,7 +19,11 @@ export default function stackNav() {
   return (
     <Stack.Navigator initialRouteName="auth">
       {user === null ? (
-        <Stack.Screen name="auth" component={Auth} />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="auth"
+          component={Auth}
+        />
       ) : (
         <>
           <Stack.Screen

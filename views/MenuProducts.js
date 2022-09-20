@@ -1,4 +1,4 @@
-import {StyleSheet, ScrollView} from 'react-native';
+import {StyleSheet, ScrollView, View, Dimensions} from 'react-native';
 import React, {useEffect} from 'react';
 import Card from '../components/Cards/Product';
 
@@ -17,21 +17,23 @@ export default function MenuProducts({route, navigation}) {
   };
 
   return (
-    <ScrollView style={styles.parent}>
-      <Card handleOnPress={handleOnPress} />
-      <Card handleOnPress={handleOnPress} />
-      <Card handleOnPress={handleOnPress} />
-      <Card handleOnPress={handleOnPress} />
-      <Card handleOnPress={handleOnPress} />
-      <Card handleOnPress={handleOnPress} />
-      <Card handleOnPress={handleOnPress} />
-      <Card handleOnPress={handleOnPress} />
+    <ScrollView>
+      <View style={styles.parent}>
+        <Card handleOnPress={handleOnPress} />
+        <Card handleOnPress={handleOnPress} />
+        <Card handleOnPress={handleOnPress} />
+        <Card handleOnPress={handleOnPress} />
+        <Card handleOnPress={handleOnPress} />
+        <Card handleOnPress={handleOnPress} />
+        <Card handleOnPress={handleOnPress} />
+        <Card handleOnPress={handleOnPress} />
+      </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   parent: {
-    padding: 10,
+    margin: 10,
   },
 });

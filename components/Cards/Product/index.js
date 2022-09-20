@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontSize: 20,
     fontFamily: 'Poppins-SemiBold',
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 1,
+    marginBottom: 1,
   },
   info: {
     backgroundColor: colors.primary,
@@ -52,13 +52,13 @@ const styles = StyleSheet.create({
   price: {
     width: Dimensions.get('window').width / 2,
     backgroundColor: 'white',
-    padding: 10,
     textAlign: 'center',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 17,
+    color: 'black',
   },
   orderNow: {
-    width: Dimensions.get('window').width / 2,
+    width: Dimensions.get('window').width / 2.13,
     textAlign: 'center',
     color: 'white',
     fontFamily: 'Poppins-SemiBold',

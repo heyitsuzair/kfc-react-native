@@ -40,6 +40,7 @@ export default function Tabs() {
       <Tab.Screen
         name="bucket"
         options={{
+          title: 'Your Bucket',
           tabBarBadge: '2',
           tabBarLabel: 'Bucket',
           tabBarIcon: ({color}) => (
