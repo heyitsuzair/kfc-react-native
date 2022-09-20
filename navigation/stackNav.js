@@ -9,6 +9,7 @@ import TabNav from './tabNav';
 import authContext from '../context/auth/AuthContext';
 import SingleProduct from '../views/SingleProduct';
 import Menu from '../views/Menu';
+import MenuProducts from '../views/MenuProducts';
 
 export default function stackNav() {
   // check the user state
@@ -16,16 +17,26 @@ export default function stackNav() {
 
   // check if user is null than show auth screen else show tabs and other screens
   return (
-    <Stack.Navigator
-      initialRouteName="auth"
-      screenOptions={{headerShown: false}}>
+    <Stack.Navigator initialRouteName="auth">
       {user === null ? (
         <Stack.Screen name="auth" component={Auth} />
       ) : (
         <>
-          <Stack.Screen name="tabs" component={TabNav} />
-          <Stack.Screen name="singleProduct" component={SingleProduct} />
-          <Stack.Screen name="menu" component={Menu} />
+          <Stack.Screen
+            name="tabs"
+            options={{headerShown: false}}
+            component={TabNav}
+          />
+          <Stack.Screen
+            name="singleProduct"
+            options={{headerShown: false}}
+            component={SingleProduct}
+          />
+          <Stack.Screen
+            options={{headerShown: true}}
+            name="MenuProducts"
+            component={MenuProducts}
+          />
         </>
       )}
     </Stack.Navigator>
