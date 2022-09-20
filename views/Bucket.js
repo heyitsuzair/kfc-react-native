@@ -6,11 +6,15 @@ import {
   Dimensions,
   Pressable,
 } from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import colors from '../colors';
 import BucketItem from '../components/Cards/Bucket';
+import authContext from '../context/auth/AuthContext';
 
 export default function Bucket({navigation}) {
+  // location state to check whether location is select or not and according to condition show the button in fixed bar
+  const {location} = useContext(authContext);
+
   return (
     <View>
       {/* <View style={styles.empty}>
@@ -59,11 +63,19 @@ export default function Bucket({navigation}) {
           <Text style={styles.fixedBarText}>Total</Text>
           <Text style={styles.fixedBarText}>PKR 3000</Text>
         </View>
-        <Pressable
-          onPress={() => navigation.navigate('Location')}
-          style={styles.pressable}>
-          <Text style={styles.fixedBarBtn}>SELECT DELIVERY AREA</Text>
-        </Pressable>
+        {location === null ? (
+          <Pressable
+            onPress={() => navigation.navigate('Location')}
+            style={styles.pressable}>
+            <Text style={styles.fixedBarBtn}>SELECT DELIVERY AREA</Text>
+          </Pressable>
+        ) : (
+          <Pressable
+            onPress={() => navigation.navigate('checkout')}
+            style={styles.pressable}>
+            <Text style={styles.fixedBarBtn}>CHECKOUT</Text>
+          </Pressable>
+        )}
       </View>
     </View>
   );

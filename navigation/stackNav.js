@@ -8,9 +8,9 @@ const Stack = createStackNavigator();
 import TabNav from './tabNav';
 import authContext from '../context/auth/AuthContext';
 import SingleProduct from '../views/SingleProduct';
-import Menu from '../views/Menu';
 import MenuProducts from '../views/MenuProducts';
 import DeliveryArea from '../views/DeliveryArea';
+import Checkout from '../views/Checkout';
 
 export default function stackNav() {
   // check the user state
@@ -46,6 +46,11 @@ export default function stackNav() {
             options={{headerShown: true}}
             name="Location"
             component={DeliveryArea}
+          />
+          <Stack.Screen
+            options={{headerShown: true}}
+            name="checkout"
+            component={Checkout}
           />
         </>
       )}

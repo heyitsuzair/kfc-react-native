@@ -11,14 +11,17 @@ import {StatusBar} from 'react-native';
 import colors from './colors';
 import AuthState from './context/auth/AuthState';
 import AddonState from './context/addon/AddonState';
+import CartState from './context/cart/CartState';
 import MainNav from './navigation/index';
 
 const App = () => {
   return (
     <AuthState>
       <AddonState>
-        <StatusBar backgroundColor={colors.primary} />
-        <MainNav />
+        <CartState>
+          <StatusBar backgroundColor={colors.primary} />
+          <MainNav />
+        </CartState>
       </AddonState>
     </AuthState>
   );
