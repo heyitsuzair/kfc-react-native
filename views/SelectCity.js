@@ -35,6 +35,7 @@ export default function SelectCity({navigation}) {
   // handle on change search value
   const onChangeSearch = query => {
     if (query === '') {
+      // setting "allCities" back to its initial state
       setAllCities([
         {name: 'Abbottabad'},
         {name: 'Bahawalpur'},
@@ -56,7 +57,6 @@ export default function SelectCity({navigation}) {
       ]);
       setValue('');
     } else {
-      console.warn(allCities);
       setValue(query);
 
       //  filter cities according to the characters coming
@@ -90,9 +90,14 @@ export default function SelectCity({navigation}) {
         value={value}
       />
       <ScrollView style={styles.parent}>
-        {allCities.map(city => {
+        {allCities.map((city, index) => {
           return (
-            <Pressable onPress={() => setCity(city.name)}>
+            <Pressable
+              key={index}
+              onPress={() => {
+                setCity(city.name);
+                navigation.goBack();
+              }}>
               <Text style={styles.text}>{city.name}</Text>
             </Pressable>
           );

@@ -7,7 +7,7 @@ import {
   PermissionsAndroid,
   Platform,
 } from 'react-native';
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import Geolocation from 'react-native-geolocation-service';
 import Icon from 'react-native-vector-icons/Entypo';
@@ -16,9 +16,15 @@ import colors from '../colors';
 import {IQ_LOCATION_API} from '@env';
 import axios from 'axios';
 import authContext from '../context/auth/AuthContext';
+import {Toast} from 'toastify-react-native';
+import {ActivityIndicator} from 'react-native-paper';
 
 export default function DeliveryArea({navigation}) {
+  // following context to set the city in "getCity" function and get the current value
   const {city, setCity} = useContext(authContext);
+
+  // loading state
+  const [loading, setLoading] = useState(true);
 
   const getCity = async (latitude, longitude) => {
     try {
@@ -33,37 +39,42 @@ export default function DeliveryArea({navigation}) {
       await axios.get(url).then(res => {
         const city = res.data.address.city;
         setCity(city);
+        setLoading(false);
       });
     } catch (error) {
-      console.warn(error);
       // show the warning
-      // console.warn('Something Went Wrong');
+      Toast.warn('Something Went Wrong.Please Check Your Internet Connection!');
     }
   };
 
   const getLocation = () => {
-    if (Platform.OS === 'android') {
-      PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      )
-        .then(res => {
-          // if location permession is granted run the following code
-          if (res === 'granted') {
-            Geolocation.getCurrentPosition(data => {
-              getCity(data.coords.latitude, data.coords.longitude);
-            });
-          } else if (res === 'denied') {
-            // if location permession is denied run the following code
-            getLocation();
-          }
-        })
-        .catch(res => {
-          console.warn('Something Went Wrong! Please Try Again!');
+    // check if city is null than get the user location else it means it is selected from "Select City View" and there is no need to execute this function as user selected custom city
+    if (city === null) {
+      if (Platform.OS === 'android') {
+        PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        )
+          .then(res => {
+            // if location permession is granted run the following code
+            if (res === 'granted') {
+              Geolocation.getCurrentPosition(data => {
+                getCity(data.coords.latitude, data.coords.longitude);
+              });
+            } else if (res === 'denied') {
+              // if location permession is denied run the following code
+              getLocation();
+            }
+          })
+          .catch(res => {
+            console.warn('Something Went Wrong! Please Try Again!');
+          });
+      } else {
+        Geolocation.getCurrentPosition(data => {
+          getCity(data.coords.latitude, data.coords.longitude);
         });
+      }
     } else {
-      Geolocation.getCurrentPosition(data => {
-        getCity(data.coords.latitude, data.coords.longitude);
-      });
+      return;
     }
   };
 
@@ -74,21 +85,31 @@ export default function DeliveryArea({navigation}) {
 
   return (
     <View style={styles.parent}>
-      <Icon name="location-pin" size={200} color={colors.primary} />
-      <Text style={styles.title}>KFC</Text>
-      <Text style={styles.findOutlet}>Lets Find An Outlet Near You</Text>
-      <Pressable
-        style={styles.row}
-        onPress={() => navigation.navigate('selectCity')}>
-        <Text style={styles.city}>
-          {city === null ? 'Please Select City' : city}
-        </Text>
-        <FontAwesome name="caret-down" />
-      </Pressable>
-      <Pressable style={styles.row}>
-        <Text style={styles.city}>Area</Text>
-        <FontAwesome name="caret-down" />
-      </Pressable>
+      {loading === true ? (
+        <ActivityIndicator
+          size="large"
+          animating={true}
+          color={colors.primary}
+        />
+      ) : (
+        <>
+          <Icon name="location-pin" size={200} color={colors.primary} />
+          <Text style={styles.title}>KFC</Text>
+          <Text style={styles.findOutlet}>Lets Find An Outlet Near You</Text>
+          <Pressable
+            style={styles.row}
+            onPress={() => navigation.navigate('selectCity')}>
+            <Text style={styles.city}>
+              {city === null ? 'Please Select City' : city}
+            </Text>
+            <FontAwesome name="caret-down" />
+          </Pressable>
+          <Pressable style={styles.row}>
+            <Text style={styles.city}>Area</Text>
+            <FontAwesome name="caret-down" />
+          </Pressable>
+        </>
+      )}
     </View>
   );
 }
