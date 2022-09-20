@@ -54,8 +54,12 @@ export default function SingleProduct({navigation}) {
         </View>
         <View style={styles.inner}>
           <View style={styles.row}>
-            <Text style={styles.text}>Krunch Chicken Combo</Text>
-            <Text style={styles.text}>PKR 460</Text>
+            <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
+              Krunch Chicken Combo
+            </Text>
+            <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
+              PKR 460
+            </Text>
           </View>
           <View>
             <Text style={styles.desc}>
@@ -105,6 +109,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    flexWrap: 'wrap',
   },
   text: {
     fontSize: 25,
@@ -112,7 +117,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
   },
   inner: {
-    margin: 20,
+    padding: 20,
   },
   desc: {
     fontFamily: 'Poppins-Medium',

@@ -10,7 +10,7 @@ export default function Button({text, action, color, width, icon}) {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      width: width === 'full' ? Dimensions.get('window').width - 100 : '',
+      width: width === 'full' ? Dimensions.get('window').width - 50 : '',
     },
     text: {
       color: 'white',
