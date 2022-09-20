@@ -1,5 +1,6 @@
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
+import MenuItem from '../components/MenuItem';
 
 export default function Menu() {
   return (
@@ -7,7 +8,20 @@ export default function Menu() {
       <View style={styles.header}>
         <Text style={styles.header.text}>Menu</Text>
       </View>
-      <ScrollView></ScrollView>
+      <ScrollView style={styles.parent}>
+        <MenuItem />
+        <MenuItem />
+        <MenuItem />
+        <MenuItem />
+        <MenuItem />
+        <MenuItem />
+        <MenuItem />
+        <MenuItem />
+        <MenuItem />
+        <MenuItem />
+        <MenuItem />
+        <MenuItem />
+      </ScrollView>
     </View>
   );
 }
@@ -22,5 +36,8 @@ const styles = StyleSheet.create({
       fontFamily: 'Poppins-Medium',
       fontSize: 20,
     },
+  },
+  parent: {
+    margin: 15,
   },
 });
