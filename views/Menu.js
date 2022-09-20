@@ -41,11 +41,13 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: 'white',
     padding: 20,
+    marginBottom: 5,
     shadowColor: 'black',
-    elevation: 4,
+    elevation: 5,
     text: {
       fontFamily: 'Poppins-Medium',
       fontSize: 20,
+      color: 'black',
     },
   },
   parent: {
