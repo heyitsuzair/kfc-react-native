@@ -16,7 +16,10 @@ export default function Menu({navigation}) {
       <View style={styles.header}>
         <Text style={styles.header.text}>Menu</Text>
       </View>
-      <ScrollView style={styles.parent}>
+      <ScrollView
+        style={styles.parent}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}>
         <MenuItem handleMenuPress={handleMenuPress} />
         <MenuItem handleMenuPress={handleMenuPress} />
         <MenuItem handleMenuPress={handleMenuPress} />

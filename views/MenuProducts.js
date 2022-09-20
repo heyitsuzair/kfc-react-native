@@ -1,5 +1,6 @@
-import {View, Text} from 'react-native';
+import {StyleSheet, ScrollView} from 'react-native';
 import React, {useEffect} from 'react';
+import Card from '../components/Cards/Product';
 
 export default function MenuProducts({route, navigation}) {
   useEffect(() => {
@@ -10,10 +11,27 @@ export default function MenuProducts({route, navigation}) {
     //eslint-disable-next-line
   }, []);
 
+  // handle when someone clicks on card
+  const handleOnPress = () => {
+    navigation.navigate('singleProduct');
+  };
+
   return (
-    <View>
-      <Text>{route.params.id}</Text>
-      <Text>{route.params.title}</Text>
-    </View>
+    <ScrollView style={styles.parent}>
+      <Card handleOnPress={handleOnPress} />
+      <Card handleOnPress={handleOnPress} />
+      <Card handleOnPress={handleOnPress} />
+      <Card handleOnPress={handleOnPress} />
+      <Card handleOnPress={handleOnPress} />
+      <Card handleOnPress={handleOnPress} />
+      <Card handleOnPress={handleOnPress} />
+      <Card handleOnPress={handleOnPress} />
+    </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  parent: {
+    padding: 10,
+  },
+});
