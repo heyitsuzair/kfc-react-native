@@ -16,7 +16,7 @@ export default function Bucket({navigation}) {
   const {location} = useContext(authContext);
 
   return (
-    <View>
+    <>
       {/* <View style={styles.empty}>
         <MaterialCommunityIcons name="bucket-outline" size={100} />
         <Text style={styles.emptyText}>
@@ -76,7 +76,7 @@ export default function Bucket({navigation}) {
           </Pressable>
         )}
       </View>
-    </View>
+    </>
   );
 }
 
@@ -114,7 +114,6 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     backgroundColor: 'white',
-    marginBottom: 70,
   },
   delivery: {
     backgroundColor: colors.bg,
@@ -128,7 +127,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 2,
     borderBottomColor: colors.bg,
     borderBottomWidth: 2,
-    marginTop: -270,
   },
   finish: {
     color: 'black',
