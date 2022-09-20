@@ -14,7 +14,7 @@ export default function index() {
           <Text adjustsFontSizeToFit numberOfLines={1} style={styles.title}>
             Krunch Burger
           </Text>
-          <Text adjustsFontSizeToFit numberOfLines={1}>
+          <Text style={styles.quantity} adjustsFontSizeToFit numberOfLines={1}>
             4 x PKR 460
           </Text>
         </View>
@@ -55,6 +55,9 @@ const styles = StyleSheet.create({
     color: 'black',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 20,
+  },
+  quantity: {
+    fontFamily: 'Poppins-Medium',
   },
   rightSide: {
     flexDirection: 'row',
