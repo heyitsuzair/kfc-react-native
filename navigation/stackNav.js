@@ -8,6 +8,7 @@ const Stack = createStackNavigator();
 import TabNav from './tabNav';
 import authContext from '../context/auth/AuthContext';
 import SingleProduct from '../views/SingleProduct';
+import Menu from '../views/Menu';
 
 export default function stackNav() {
   // check the user state
@@ -24,6 +25,7 @@ export default function stackNav() {
         <>
           <Stack.Screen name="tabs" component={TabNav} />
           <Stack.Screen name="singleProduct" component={SingleProduct} />
+          <Stack.Screen name="menu" component={Menu} />
         </>
       )}
     </Stack.Navigator>
