@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   totalPrice: {
     color: 'black',
     fontFamily: 'Poppins-SemiBold',
-    fontSize: 20,
+    fontSize: 19,
   },
   quantity: {
     fontFamily: 'Poppins-Medium',
