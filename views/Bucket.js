@@ -33,26 +33,25 @@ export default function Bucket({navigation}) {
       </View>
       <ScrollView
         showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-        style={styles.scrollView}>
+        showsVerticalScrollIndicator={false}>
         <View>
           <Text style={styles.delivery}>Delivery Fee Of PKR 50 Will Apply</Text>
         </View>
-        <View>
-          <BucketItem />
-          <BucketItem />
-          <BucketItem />
-          <BucketItem />
-          <BucketItem />
-          <BucketItem />
-          <BucketItem />
-          <BucketItem />
-          <BucketItem />
-          <BucketItem />
-          <BucketItem />
-          <BucketItem />
-          <BucketItem />
-          <BucketItem />
+        <View style={styles.scrollView}>
+          <BucketItem navigation={navigation} />
+          <BucketItem navigation={navigation} />
+          <BucketItem navigation={navigation} />
+          <BucketItem navigation={navigation} />
+          <BucketItem navigation={navigation} />
+          <BucketItem navigation={navigation} />
+          <BucketItem navigation={navigation} />
+          <BucketItem navigation={navigation} />
+          <BucketItem navigation={navigation} />
+          <BucketItem navigation={navigation} />
+          <BucketItem navigation={navigation} />
+          <BucketItem navigation={navigation} />
+          <BucketItem navigation={navigation} />
+          <BucketItem navigation={navigation} />
         </View>
       </ScrollView>
       <View style={styles.fixedBar}>
@@ -122,8 +121,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   fixedBar: {
-    position: 'absolute',
-    top: 866,
     backgroundColor: 'white',
     padding: 20,
     width: Dimensions.get('window').width,
@@ -131,6 +128,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 2,
     borderBottomColor: colors.bg,
     borderBottomWidth: 2,
+    marginTop: -274,
   },
   finish: {
     color: 'black',

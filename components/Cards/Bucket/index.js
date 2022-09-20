@@ -1,10 +1,12 @@
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function index() {
+export default function index({navigation}) {
   return (
-    <View style={styles.parent}>
+    <Pressable
+      onPress={() => navigation.navigate('bucketItemInfo')}
+      style={styles.parent}>
       <View style={styles.leftSide}>
         <Image
           source={require('../../../assets/images/deal1.png')}
@@ -25,7 +27,7 @@ export default function index() {
         </Text>
         <Icon name="chevron-right" size={30} />
       </View>
-    </View>
+    </Pressable>
   );
 }
 

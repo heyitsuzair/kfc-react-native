@@ -11,6 +11,7 @@ import SingleProduct from '../views/SingleProduct';
 import MenuProducts from '../views/MenuProducts';
 import DeliveryArea from '../views/DeliveryArea';
 import Checkout from '../views/Checkout';
+import BucketItemInfo from '../views/BucketItemInfo';
 
 export default function stackNav() {
   // check the user state
@@ -51,6 +52,11 @@ export default function stackNav() {
             options={{headerShown: true}}
             name="checkout"
             component={Checkout}
+          />
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="bucketItemInfo"
+            component={BucketItemInfo}
           />
         </>
       )}
