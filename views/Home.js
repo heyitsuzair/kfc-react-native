@@ -20,7 +20,12 @@ export default function Home({navigation}) {
   return (
     <ScrollView>
       <View>
-        <Container duration={2000} position="top" />
+        <Container
+          duration={2000}
+          width={Dimensions.get('window').width - 100}
+          height={100}
+          position="top"
+        />
       </View>
       <View>
         <Image

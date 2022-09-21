@@ -16,6 +16,7 @@ import SelectCity from '../views/SelectCity';
 import SelectArea from '../views/SelectArea';
 import Icon from 'react-native-vector-icons/Entypo';
 import colors from '../colors';
+import Payment from '../views/Payment';
 
 export default function stackNav() {
   // check the user state
@@ -81,6 +82,11 @@ export default function stackNav() {
             options={{headerShown: true}}
             name="selectArea"
             component={SelectArea}
+          />
+          <Stack.Screen
+            options={{headerShown: true}}
+            name="payment"
+            component={Payment}
           />
         </>
       )}

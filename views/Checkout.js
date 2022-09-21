@@ -3,12 +3,26 @@ import React, {useContext, useEffect} from 'react';
 import TextInput from '../components/TextInput';
 import authContext from '../context/auth/AuthContext';
 import colors from '../colors';
+import {Toast} from 'toastify-react-native';
+import Container from 'toastify-react-native';
 
 export default function Checkout({navigation}) {
   // get user info
   const {user, location, phoneNo, setPhoneNo} = useContext(authContext);
 
-  // handle when someone clicks on continue to payment
+  // handle when someone clicks on "continue to payment"
+  const handleContinue = () => {
+    if (phoneNo === null) {
+      Toast.warn('Please Enter Phone No.');
+      return;
+    } else if (phoneNo.length < 11) {
+      Toast.warn('Please Enter Valid 11 Digits Phone No.');
+      return;
+    } else {
+      // navigate to payment page
+      navigation.navigate('payment');
+    }
+  };
 
   useEffect(() => {
     // Set the custom title of header
@@ -19,6 +33,14 @@ export default function Checkout({navigation}) {
 
   return (
     <View style={styles.parent}>
+      <View>
+        <Container
+          duration={2000}
+          width={Dimensions.get('window').width - 100}
+          height={100}
+          position="top"
+        />
+      </View>
       <TextInput
         label="Email Address"
         editable={false}
@@ -45,9 +67,7 @@ export default function Checkout({navigation}) {
         value={phoneNo === null ? '' : phoneNo}
         onChangeText={setPhoneNo}
       />
-      <Pressable
-        onPress={() => navigation.navigate('checkout')}
-        style={styles.pressable}>
+      <Pressable onPress={() => handleContinue()} style={styles.pressable}>
         <Text style={styles.fixedBarBtn}>CONTINUE TO PAYMENT</Text>
       </Pressable>
     </View>
