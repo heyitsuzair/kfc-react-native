@@ -74,6 +74,7 @@ export default function DeliveryArea({navigation}) {
         });
       }
     } else {
+      setLoading(false);
       return;
     }
   };

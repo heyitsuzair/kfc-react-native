@@ -62,7 +62,7 @@ export default function Bucket({navigation}) {
           <Text style={styles.fixedBarText}>Total</Text>
           <Text style={styles.fixedBarText}>PKR 3000</Text>
         </View>
-        {location === null || city.name ? (
+        {location === null || city.name === null ? (
           <Pressable
             onPress={() => navigation.navigate('Location')}
             style={styles.pressable}>

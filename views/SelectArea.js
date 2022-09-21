@@ -1,9 +1,10 @@
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
-import React, {useContext, useEffect, useState} from 'react';
+import {View, StyleSheet, Dimensions} from 'react-native';
+import React, {useContext, useEffect} from 'react';
 import {GOOGLE_MAPS_API} from '@env';
 import authContext from '../context/auth/AuthContext';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {Toast} from 'toastify-react-native';
+import colors from '../colors/index';
 navigator.geolocation = require('react-native-geolocation-service');
 
 export default function SelectArea({navigation}) {
@@ -22,6 +23,23 @@ export default function SelectArea({navigation}) {
       <GooglePlacesAutocomplete
         placeholder="Search Your Term"
         enableHighAccuracyLocation={true}
+        styles={{
+          textInput: {
+            fontSize: 16,
+            backgroundColor: 'white',
+            margin: 10,
+            shadowColor: 'black',
+            elevation: 10,
+          },
+          separator: {
+            height: 2,
+            backgroundColor: colors.bg,
+          },
+          predefinedPlacesDescription: {
+            color: colors.primary,
+            fontFamily: 'Poppins-SemiBold',
+          },
+        }}
         onFail={() =>
           Toast.error('Please Check Your Interner Connection And Try Again!')
         }
