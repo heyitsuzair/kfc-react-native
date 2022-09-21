@@ -40,12 +40,17 @@ export default function SelectArea({navigation}) {
             fontFamily: 'Poppins-SemiBold',
           },
         }}
+        fetchDetails={true}
         onFail={() =>
           Toast.error('Please Check Your Interner Connection And Try Again!')
         }
         onPress={(data, details = null) => {
+          const formattedAddress = details.formatted_address.replace(
+            /^[^,]+, */,
+            '',
+          );
           // 'details' is provided when fetchDetails = true
-          setLocation(data.name || data.description + ',' + city.name);
+          setLocation(details.name + ' , ' + formattedAddress);
           navigation.navigate('Location');
         }}
         query={{
