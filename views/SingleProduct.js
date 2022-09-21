@@ -57,7 +57,6 @@ export default function SingleProduct({navigation, route}) {
   const getAllSoftDrinks = async () => {
     try {
       const {data} = await axios.get(getSoftDrinks);
-
       setSoftDrinks(data);
     } catch (error) {
       Toast.error('Something Went Wrong. Please Try Again!');

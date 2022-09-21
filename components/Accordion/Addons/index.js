@@ -3,7 +3,7 @@ import {List} from 'react-native-paper';
 import AddonItem from './AddonItem';
 import {View} from 'react-native';
 
-const index = () => {
+const index = ({addons}) => {
   const [expanded, setExpanded] = React.useState(false);
 
   const handlePress = () => setExpanded(!expanded);
@@ -25,12 +25,9 @@ const index = () => {
         titleStyle={{fontFamily: 'Poppins-Light', color: 'black'}}
         style={{backgroundColor: 'white'}}
         onPress={handlePress}>
-        <AddonItem index="1" />
-        <AddonItem index="2" />
-        <AddonItem index="3" />
-        <AddonItem index="4" />
-        <AddonItem index="5" />
-        <AddonItem index="6" />
+        {addons.map((addon, index) => {
+          return <AddonItem key={index} addon={addon} index={index} />;
+        })}
       </List.Accordion>
     </List.Section>
   );

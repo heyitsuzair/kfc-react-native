@@ -4,7 +4,7 @@ import {Checkbox, List} from 'react-native-paper';
 import colors from '../../../colors';
 import AddonContext from '../../../context/addon/AddonContext';
 
-export default function AddonItem() {
+export default function AddonItem({addon}) {
   // context to update addon quantity
   const {setAddonQuantity, addonQuantity} = useContext(AddonContext);
 
@@ -73,10 +73,10 @@ export default function AddonItem() {
             color={colors.primary}
             value="hello"
           />
-          <Text style={styles.text}>Hello</Text>
+          <Text style={styles.text}>{addon.name}</Text>
         </View>
         <View>
-          <Text style={{marginRight: 30}}>PKR 150</Text>
+          <Text style={{marginRight: 30}}>PKR {addon.price}</Text>
         </View>
       </Pressable>
       <View style={styles.quantity}>
