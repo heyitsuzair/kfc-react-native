@@ -2,17 +2,14 @@ import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
 import React from 'react';
 import {List} from 'react-native-paper';
 
-export default function index({handleMenuPress}) {
+export default function index({handleMenuPress, item}) {
   return (
     <Pressable
-      onPress={() => handleMenuPress('title', '1')}
+      onPress={() => handleMenuPress(item.name, item._id)}
       style={styles.parent}>
       <View style={styles.leftSection}>
-        <Image
-          style={styles.img}
-          source={require('../../assets/images/logo.png')}
-        />
-        <Text>Hello</Text>
+        <Image style={styles.img} source={{uri: item.catPic}} />
+        <Text>{item.name}</Text>
       </View>
       <View>
         <List.Icon icon="chevron-right" />
