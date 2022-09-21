@@ -8,14 +8,21 @@ import {
   Button,
   Pressable,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import DrinkAccordion from '../components/Accordion/Drinks/index';
 import AddonAccordion from '../components/Accordion/Addons/index';
 import {List} from 'react-native-paper';
 import colors from '../colors';
+import {Toast} from 'toastify-react-native';
+import Container from 'toastify-react-native';
+import axios from 'axios';
+import {getProductInfo} from '../utils/apis';
 
-export default function SingleProduct({navigation}) {
+export default function SingleProduct({navigation, route}) {
+  // state to hold product info
+  const [product, setProduct] = useState([]);
+
   // when someone presses cross
   const handleOnPress = () => {
     // navigate the person back to the screen from where it came
@@ -36,8 +43,30 @@ export default function SingleProduct({navigation}) {
     }
   };
 
+  // get the info of incoming product with "id"
+  const getProdInfo = async id => {
+    try {
+      const {data} = await axios.get(getProductInfo + '/' + id);
+      setProduct(data);
+    } catch (error) {
+      Toast.error('Error! Please Check Your Internet Connection.');
+    }
+  };
+
+  useEffect(() => {
+    getProdInfo(route.params.prodId);
+  }, []);
+
   return (
     <>
+      <View>
+        <Container
+          duration={2000}
+          width={Dimensions.get('window').width - 80}
+          height={100}
+          position="top"
+        />
+      </View>
       <ScrollView style={styles.parent}>
         <View>
           <MaterialCommunityIcons
@@ -55,18 +84,14 @@ export default function SingleProduct({navigation}) {
         <View style={styles.inner}>
           <View style={styles.row}>
             <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
-              Krunch Chicken Combo
+              {product.name}
             </Text>
             <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
-              PKR 460
+              PKR {product.price}
             </Text>
           </View>
           <View>
-            <Text style={styles.desc}>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Distinctio soluta delectus aliquid doloribus veritatis cum rem
-              dolorem! Aperiam, magnam sequi.
-            </Text>
+            <Text style={styles.desc}>{product.desc}</Text>
           </View>
           <View style={{marginTop: 20}}>
             <DrinkAccordion />
