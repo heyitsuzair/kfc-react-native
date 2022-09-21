@@ -12,6 +12,7 @@ import colors from './colors';
 import AuthState from './context/auth/AuthState';
 import AddonState from './context/addon/AddonState';
 import CartState from './context/cart/CartState';
+import SoftdrinkState from './context/softdrinks/SoftdrinkState';
 import MainNav from './navigation/index';
 
 const App = () => {
@@ -20,8 +21,10 @@ const App = () => {
       <AuthState>
         <AddonState>
           <CartState>
-            <StatusBar backgroundColor={colors.primary} />
-            <MainNav />
+            <SoftdrinkState>
+              <StatusBar backgroundColor={colors.primary} />
+              <MainNav />
+            </SoftdrinkState>
           </CartState>
         </AddonState>
       </AuthState>
