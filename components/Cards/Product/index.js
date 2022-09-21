@@ -9,16 +9,13 @@ import {
 import React from 'react';
 import colors from '../../../colors';
 
-export default function index({handleOnPress}) {
+export default function index({handleOnPress, prod}) {
   return (
-    <Pressable style={styles.parent} onPress={() => handleOnPress()}>
-      <Image
-        style={styles.img}
-        source={require('../../../assets/images/deal1.png')}
-      />
-      <Text style={styles.text}>Krunch Burger</Text>
+    <Pressable style={styles.parent} onPress={() => handleOnPress(prod._id)}>
+      <Image style={styles.img} source={{uri: prod.prodImg}} />
+      <Text style={styles.text}>{prod.name}</Text>
       <View style={styles.info}>
-        <Text style={styles.price}>PKR 250</Text>
+        <Text style={styles.price}>PKR {prod.price}</Text>
         <Text style={styles.orderNow}>Order</Text>
       </View>
     </Pressable>
@@ -32,8 +29,10 @@ const styles = StyleSheet.create({
   },
   img: {
     width: Dimensions.get('window').width,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
     marginBottom: 10,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height / 4,
   },
   text: {
     color: colors.primary,
