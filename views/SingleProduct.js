@@ -117,9 +117,9 @@ export default function SingleProduct({navigation, route}) {
   };
 
   // check if already exists, if yes than show "Go To Cart" Button Instead Of "Add To Cart"
-  const checkExists = () => {
+  const checkExists = id => {
     const filter = cartItems.filter(item => {
-      return item.prod_id === product._id;
+      return item.prod_id === id;
     });
     if (filter.length > 0) {
       setIsInCart(true);
@@ -135,7 +135,7 @@ export default function SingleProduct({navigation, route}) {
   }, []);
 
   useEffect(() => {
-    checkExists();
+    checkExists(route.params.prodId);
   }, [cartItems]);
 
   return (

@@ -27,8 +27,8 @@ export default function index({handleOnPress, prod, isMidnight}) {
           <Text style={styles.available}>Available From 12AM To 2AM</Text>
         ) : (
           <>
-            <Text style={styles.orderNow}>Order</Text>
             <Text style={styles.price}>PKR {prod.price}</Text>
+            <Text style={styles.orderNow}>Order</Text>
           </>
         )}
       </View>

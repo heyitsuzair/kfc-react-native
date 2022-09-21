@@ -5,7 +5,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 export default function index({navigation, prod}) {
   return (
     <Pressable
-      onPress={() => navigation.navigate('bucketItemInfo')}
+      onPress={() =>
+        navigation.navigate('bucketItemInfo', {
+          prodId: prod.prod_id,
+        })
+      }
       style={styles.parent}>
       <View style={styles.leftSide}>
         <Image source={{uri: prod.product.src}} style={styles.img} />

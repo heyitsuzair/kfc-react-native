@@ -7,12 +7,23 @@ import {
   ScrollView,
   Pressable,
 } from 'react-native';
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {List} from 'react-native-paper';
 import colors from '../colors';
+import cartContext from '../context/cart/CartContext';
+import Loading from '../components/Loading';
 
-export default function BucketItemInfo({navigation}) {
+export default function BucketItemInfo({navigation, route}) {
+  // following context  to get cartItems and filter the specific one that is coming through "prodId" params
+  const {cartItems} = useContext(cartContext);
+
+  // state for loading
+  const [loading, setLoading] = useState(true);
+
+  // state to item info
+  const [item, setItem] = useState(null);
+
   // when someone presses cross
   const handleOnPress = () => {
     // navigate the person back to the screen from where it came
@@ -38,54 +49,91 @@ export default function BucketItemInfo({navigation}) {
     alert('Remove');
   };
 
+  // get the info of product from "cartItems" that is incoming from "prodId" parameter
+  const getItemInfo = () => {
+    const filter = cartItems.filter(item => {
+      return item.prod_id === route.params.prodId;
+    });
+    setItem(filter[0]);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getItemInfo();
+  }, [route.params.prodId, cartItems]);
+
   return (
     <>
-      <ScrollView style={styles.parent}>
-        <View>
-          <MaterialCommunityIcons
-            style={styles.close}
-            name="close-circle"
-            color="white"
-            size={40}
-            onPress={() => handleOnPress()}
-          />
-          <Image
-            style={styles.img}
-            source={require('../assets/images/deal1.png')}
-          />
-        </View>
-        <View style={styles.inner}>
-          <View style={styles.row}>
-            <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
-              Krunch Chicken Combo
-            </Text>
-            <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
-              PKR 460
-            </Text>
+      {loading === true ? (
+        <Loading />
+      ) : (
+        <>
+          <ScrollView style={styles.parent}>
+            <View>
+              <MaterialCommunityIcons
+                style={styles.close}
+                name="close-circle"
+                color={colors.primary}
+                size={40}
+                onPress={() => handleOnPress()}
+              />
+              <Image
+                style={styles.img}
+                source={{
+                  uri: item.product.src === undefined ? '' : item.product.src,
+                }}
+              />
+            </View>
+            <View style={styles.inner}>
+              <View style={styles.row}>
+                <Text
+                  adjustsFontSizeToFit
+                  numberOfLines={1}
+                  style={styles.text}>
+                  {item.product.title} x {item.quantity}
+                </Text>
+                <Text
+                  adjustsFontSizeToFit
+                  numberOfLines={1}
+                  style={styles.text}>
+                  PKR {item.product.price * item.quantity}
+                </Text>
+              </View>
+              <View style={styles.addonsRow}>
+                <View style={styles.addonsInner}>
+                  <Text>
+                    {item.softDrinks.drink.name} x {item.softDrinks.quantity}
+                  </Text>
+                  <Text>
+                    PKR {item.softDrinks.drink.price * item.softDrinks.quantity}
+                  </Text>
+                </View>
+              </View>
+              <View>
+                <Text style={styles.remove} onPress={() => handleRemove()}>
+                  Remove
+                </Text>
+              </View>
+            </View>
+          </ScrollView>
+          <View style={styles.fixedBar}>
+            <View style={styles.quantity}>
+              <Pressable onPress={() => handleQuantity('-')}>
+                <List.Icon icon="minus" color={colors.primary} />
+              </Pressable>
+              <Text icon="minus" color={colors.primary}>
+                1
+              </Text>
+              <Pressable onPress={() => handleQuantity('+')}>
+                <List.Icon icon="plus" color={colors.primary} />
+              </Pressable>
+            </View>
+            <Pressable style={styles.addToCart} onPress={() => updateItem()}>
+              <Text style={styles.addToCartText}>Update</Text>
+            </Pressable>
           </View>
-          <View>
-            <Text style={styles.remove} onPress={() => handleRemove()}>
-              Remove
-            </Text>
-          </View>
-        </View>
-      </ScrollView>
-      <View style={styles.fixedBar}>
-        <View style={styles.quantity}>
-          <Pressable onPress={() => handleQuantity('-')}>
-            <List.Icon icon="minus" color={colors.primary} />
-          </Pressable>
-          <Text icon="minus" color={colors.primary}>
-            1
-          </Text>
-          <Pressable onPress={() => handleQuantity('+')}>
-            <List.Icon icon="plus" color={colors.primary} />
-          </Pressable>
-        </View>
-        <Pressable style={styles.addToCart} onPress={() => updateItem()}>
-          <Text style={styles.addToCartText}>Update</Text>
-        </Pressable>
-      </View>
+        </>
+      )}
     </>
   );
 }
@@ -100,7 +148,7 @@ const styles = StyleSheet.create({
   img: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height / 1.5,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   row: {
     flexDirection: 'row',
@@ -144,5 +192,9 @@ const styles = StyleSheet.create({
   addToCartText: {
     color: 'white',
     fontFamily: 'Poppins-SemiBold',
+  },
+  addonsInner: {
+    marginTop: 10,
+    marginBottom: 10,
   },
 });
