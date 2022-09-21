@@ -6,7 +6,12 @@ import {ActivityIndicator} from 'react-native-paper';
 export default function index() {
   return (
     <View style={styles.loadingContainer}>
-      <ActivityIndicator size="large" animating={true} color={colors.primary} />
+      <ActivityIndicator
+        size="large"
+        style={{marginTop: -35}}
+        animating={true}
+        color={colors.primary}
+      />
     </View>
   );
 }
