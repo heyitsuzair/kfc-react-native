@@ -11,9 +11,21 @@ export default function authState({children}) {
   // state for location of delivery
   const [location, setLocation] = useState(null);
 
+  // state for user phone no
+  const [phoneNo, setPhoneNo] = useState(null);
+
   return (
     <authContext.Provider
-      value={{city, setCity, user, setUser, location, setLocation}}>
+      value={{
+        city,
+        setCity,
+        user,
+        setUser,
+        location,
+        setLocation,
+        phoneNo,
+        setPhoneNo,
+      }}>
       {children}
     </authContext.Provider>
   );

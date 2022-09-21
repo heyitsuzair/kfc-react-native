@@ -14,6 +14,8 @@ import Checkout from '../views/Checkout';
 import BucketItemInfo from '../views/BucketItemInfo';
 import SelectCity from '../views/SelectCity';
 import SelectArea from '../views/SelectArea';
+import Icon from 'react-native-vector-icons/Entypo';
+import colors from '../colors';
 
 export default function stackNav() {
   // check the user state
@@ -51,7 +53,17 @@ export default function stackNav() {
             component={DeliveryArea}
           />
           <Stack.Screen
-            options={{headerShown: true}}
+            options={({navigation}) => ({
+              headerShown: true,
+              headerRight: () => (
+                <Icon
+                  name="location-pin"
+                  onPress={() => navigation.navigate('Location')}
+                  size={30}
+                  color={colors.primary}
+                />
+              ),
+            })}
             name="checkout"
             component={Checkout}
           />
