@@ -12,7 +12,7 @@ export default function AddonItem({addon}) {
   const [checked, setChecked] = useState(false);
 
   // quantity state for this addon item
-  const [quantity, setQuantity] = useState([]);
+  const [quantity, setQuantity] = useState(null);
 
   const styles = StyleSheet.create({
     parent: {
@@ -44,11 +44,20 @@ export default function AddonItem({addon}) {
   });
 
   const handleQuantity = condition => {
+    // find the addon and set the new quantity
+    const findAddon = addonQuantity.find(item => item.addon._id === addon._id);
     if (condition === '+') {
       setQuantity(quantity + 1);
-      // const newQuantity = quantity + 1;
+      const newQuantity = quantity + 1;
+      findAddon.quantity = newQuantity;
     } else {
-      setQuantity(quantity - 1);
+      if (quantity === 1) {
+        return;
+      } else {
+        setQuantity(quantity - 1);
+        const newQuantity = quantity - 1;
+        findAddon.quantity = newQuantity;
+      }
     }
   };
 
@@ -57,10 +66,15 @@ export default function AddonItem({addon}) {
     if (checked === false) {
       setChecked(true);
       setQuantity(1);
-      // setAddonQuantity(addonQuantity.concat({addon: 'addon', quantity: 1}));
+      setAddonQuantity(addonQuantity.concat({addon: addon, quantity: 1}));
     } else {
+      // filter the addonQuantity and remove "this" addon
+      const filteredAddon = addonQuantity.filter(item => {
+        return item.addon._id !== addon._id;
+      });
+      setAddonQuantity(filteredAddon);
       setChecked(false);
-      setQuantity([]);
+      setQuantity(null);
     }
   };
 
