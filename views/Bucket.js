@@ -13,7 +13,7 @@ import authContext from '../context/auth/AuthContext';
 
 export default function Bucket({navigation}) {
   // location state to check whether location is select or not and according to condition show the button in fixed bar
-  const {location} = useContext(authContext);
+  const {location, city} = useContext(authContext);
 
   return (
     <>
@@ -62,7 +62,7 @@ export default function Bucket({navigation}) {
           <Text style={styles.fixedBarText}>Total</Text>
           <Text style={styles.fixedBarText}>PKR 3000</Text>
         </View>
-        {location === null ? (
+        {location === null || city.name ? (
           <Pressable
             onPress={() => navigation.navigate('Location')}
             style={styles.pressable}>
