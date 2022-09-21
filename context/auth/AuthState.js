@@ -6,7 +6,7 @@ export default function authState({children}) {
   const [user, setUser] = useState('null');
 
   // state for city
-  const [city, setCity] = useState(null);
+  const [city, setCity] = useState({name: null, lon: null, lat: null});
 
   // state for location of delivery
   const [location, setLocation] = useState(null);

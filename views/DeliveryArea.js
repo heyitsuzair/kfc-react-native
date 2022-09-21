@@ -20,8 +20,8 @@ import {Toast} from 'toastify-react-native';
 import {ActivityIndicator} from 'react-native-paper';
 
 export default function DeliveryArea({navigation}) {
-  // following context to set the city in "getCity" function and get the current value
-  const {city, setCity} = useContext(authContext);
+  // following context to set the city in "getCity" function and get the current values
+  const {city, setCity, location} = useContext(authContext);
 
   // loading state
   const [loading, setLoading] = useState(true);
@@ -38,7 +38,7 @@ export default function DeliveryArea({navigation}) {
         '&format=json';
       await axios.get(url).then(res => {
         const city = res.data.address.city;
-        setCity(city);
+        setCity({name: city, lon: longitude, lat: latitude});
         setLoading(false);
       });
     } catch (error) {
@@ -49,7 +49,7 @@ export default function DeliveryArea({navigation}) {
 
   const getLocation = () => {
     // check if city is null than get the user location else it means it is selected from "Select City View" and there is no need to execute this function as user selected custom city
-    if (city === null) {
+    if (city.name === null) {
       if (Platform.OS === 'android') {
         PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -66,7 +66,7 @@ export default function DeliveryArea({navigation}) {
             }
           })
           .catch(res => {
-            console.warn('Something Went Wrong! Please Try Again!');
+            Toast.warn('Something Went Wrong! Please Try Again!');
           });
       } else {
         Geolocation.getCurrentPosition(data => {
@@ -100,12 +100,16 @@ export default function DeliveryArea({navigation}) {
             style={styles.row}
             onPress={() => navigation.navigate('selectCity')}>
             <Text style={styles.city}>
-              {city === null ? 'Please Select City' : city}
+              {city.name === null ? 'Please Select City' : city.name}
             </Text>
             <FontAwesome name="caret-down" />
           </Pressable>
-          <Pressable style={styles.row}>
-            <Text style={styles.city}>Area</Text>
+          <Pressable
+            onPress={() => navigation.navigate('selectArea')}
+            style={styles.row}>
+            <Text style={styles.city} adjustsFontSizeToFit numberOfLines={1}>
+              {location === null ? 'Area' : location.slice(0, 22) + '...'}
+            </Text>
             <FontAwesome name="caret-down" />
           </Pressable>
         </>

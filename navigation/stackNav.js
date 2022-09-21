@@ -13,6 +13,7 @@ import DeliveryArea from '../views/DeliveryArea';
 import Checkout from '../views/Checkout';
 import BucketItemInfo from '../views/BucketItemInfo';
 import SelectCity from '../views/SelectCity';
+import SelectArea from '../views/SelectArea';
 
 export default function stackNav() {
   // check the user state
@@ -63,6 +64,11 @@ export default function stackNav() {
             options={{headerShown: true}}
             name="selectCity"
             component={SelectCity}
+          />
+          <Stack.Screen
+            options={{headerShown: true}}
+            name="selectArea"
+            component={SelectArea}
           />
         </>
       )}

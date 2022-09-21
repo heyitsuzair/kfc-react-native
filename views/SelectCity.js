@@ -95,7 +95,7 @@ export default function SelectCity({navigation}) {
             <Pressable
               key={index}
               onPress={() => {
-                setCity(city.name);
+                setCity({name: city.name, lon: 74.3587, lat: 31.5204});
                 navigation.goBack();
               }}>
               <Text style={styles.text}>{city.name}</Text>
