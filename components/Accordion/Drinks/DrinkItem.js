@@ -3,18 +3,29 @@ import React from 'react';
 import {RadioButton} from 'react-native-paper';
 import colors from '../../../colors';
 
-export default function DrinkItem({handleOnPressDrink, index, selectedDrink}) {
+export default function DrinkItem({
+  handleOnPressDrink,
+  index,
+  selectedDrink,
+  drink,
+}) {
   return (
     <View style={styles.parent}>
       <Pressable
         style={styles.inner}
-        onPress={() => handleOnPressDrink(index, 'hello', 1)}>
+        onPress={() => handleOnPressDrink(index, drink, 1)}>
         <RadioButton
           color={colors.primary}
-          status={selectedDrink.index === index ? 'checked' : 'unchecked'}
-          value="hello"
+          status={
+            selectedDrink === null
+              ? ''
+              : selectedDrink.index === index
+              ? 'checked'
+              : 'unchecked'
+          }
+          value={drink._id}
         />
-        <Text style={styles.text}>Hello</Text>
+        <Text style={styles.text}>{drink.name}</Text>
       </Pressable>
     </View>
   );

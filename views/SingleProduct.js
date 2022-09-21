@@ -17,11 +17,21 @@ import colors from '../colors';
 import {Toast} from 'toastify-react-native';
 import Container from 'toastify-react-native';
 import axios from 'axios';
-import {getProductInfo} from '../utils/apis';
+import {getAddons, getProductInfo, getSoftDrinks} from '../utils/apis';
+import Loading from '../components/Loading';
 
 export default function SingleProduct({navigation, route}) {
   // state to hold product info
   const [product, setProduct] = useState([]);
+
+  // state to hold addons
+  const [addons, setAddons] = useState([]);
+
+  // state to hold softDrinks
+  const [softDrinks, setSoftDrinks] = useState([]);
+
+  // loading state
+  const [loading, setLoading] = useState(true);
 
   // when someone presses cross
   const handleOnPress = () => {
@@ -43,11 +53,35 @@ export default function SingleProduct({navigation, route}) {
     }
   };
 
+  // get all softdrinks
+  const getAllSoftDrinks = async () => {
+    try {
+      const {data} = await axios.get(getSoftDrinks);
+
+      setSoftDrinks(data);
+    } catch (error) {
+      Toast.error('Something Went Wrong. Please Try Again!');
+    }
+  };
+
+  // get all addons
+  const getAllAddons = async () => {
+    try {
+      const {data} = await axios.get(getAddons);
+      setAddons(data);
+      setLoading(false);
+    } catch (error) {
+      Toast.error('Something Went Wrong. Please Try Again!');
+    }
+  };
+
   // get the info of incoming product with "id"
   const getProdInfo = async id => {
     try {
       const {data} = await axios.get(getProductInfo + '/' + id);
       setProduct(data);
+      getAllSoftDrinks();
+      getAllAddons();
     } catch (error) {
       Toast.error('Error! Please Check Your Internet Connection.');
     }
@@ -67,54 +101,63 @@ export default function SingleProduct({navigation, route}) {
           position="top"
         />
       </View>
-      <ScrollView style={styles.parent}>
-        <View>
-          <MaterialCommunityIcons
-            style={styles.close}
-            name="close-circle"
-            color="white"
-            size={40}
-            onPress={() => handleOnPress()}
-          />
-          <Image
-            style={styles.img}
-            source={require('../assets/images/deal1.png')}
-          />
-        </View>
-        <View style={styles.inner}>
-          <View style={styles.row}>
-            <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
-              {product.name}
-            </Text>
-            <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
-              PKR {product.price}
-            </Text>
+      {loading === true ? (
+        <Loading />
+      ) : (
+        <>
+          <ScrollView style={styles.parent}>
+            <View>
+              <MaterialCommunityIcons
+                style={styles.close}
+                name="close-circle"
+                color={colors.primary}
+                size={40}
+                onPress={() => handleOnPress()}
+              />
+              <Image style={styles.img} source={{uri: product.prodImg}} />
+            </View>
+            <View style={styles.inner}>
+              <View style={styles.row}>
+                <Text
+                  adjustsFontSizeToFit
+                  numberOfLines={1}
+                  style={styles.text}>
+                  {product.name}
+                </Text>
+                <Text
+                  adjustsFontSizeToFit
+                  numberOfLines={1}
+                  style={styles.text}>
+                  PKR {product.price}
+                </Text>
+              </View>
+              <View>
+                <Text style={styles.desc}>{product.desc}</Text>
+              </View>
+              <View style={{marginTop: 20}}>
+                <DrinkAccordion softDrinks={softDrinks} />
+                <AddonAccordion addons={addons} />
+              </View>
+            </View>
+          </ScrollView>
+          <View style={styles.fixedBar}>
+            <View style={styles.quantity}>
+              <Pressable onPress={() => handleQuantity('-')}>
+                <List.Icon icon="minus" color={colors.primary} />
+              </Pressable>
+              <Text icon="minus" color={colors.primary}>
+                1
+              </Text>
+              <Pressable onPress={() => handleQuantity('+')}>
+                <List.Icon icon="plus" color={colors.primary} />
+              </Pressable>
+            </View>
+            <Pressable style={styles.addToCart} onPress={() => addToCart()}>
+              <Text style={styles.addToCartText}>Add To Cart</Text>
+            </Pressable>
           </View>
-          <View>
-            <Text style={styles.desc}>{product.desc}</Text>
-          </View>
-          <View style={{marginTop: 20}}>
-            <DrinkAccordion />
-            <AddonAccordion />
-          </View>
-        </View>
-      </ScrollView>
-      <View style={styles.fixedBar}>
-        <View style={styles.quantity}>
-          <Pressable onPress={() => handleQuantity('-')}>
-            <List.Icon icon="minus" color={colors.primary} />
-          </Pressable>
-          <Text icon="minus" color={colors.primary}>
-            1
-          </Text>
-          <Pressable onPress={() => handleQuantity('+')}>
-            <List.Icon icon="plus" color={colors.primary} />
-          </Pressable>
-        </View>
-        <Pressable style={styles.addToCart} onPress={() => addToCart()}>
-          <Text style={styles.addToCartText}>Add To Cart</Text>
-        </Pressable>
-      </View>
+        </>
+      )}
     </>
   );
 }
@@ -129,7 +172,7 @@ const styles = StyleSheet.create({
   img: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height / 2.5,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   row: {
     flexDirection: 'row',

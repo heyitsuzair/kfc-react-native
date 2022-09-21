@@ -5,8 +5,7 @@ import {Toast} from 'toastify-react-native';
 import Container from 'toastify-react-native';
 import axios from 'axios';
 import {getCatProducts} from '../utils/apis';
-import {ActivityIndicator} from 'react-native-paper';
-import colors from '../colors';
+import Loading from '../components/Loading';
 
 export default function MenuProducts({route, navigation}) {
   // state for category products
@@ -66,13 +65,7 @@ export default function MenuProducts({route, navigation}) {
         position="top"
       />
       {loading === true ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator
-            size="large"
-            animating={true}
-            color={colors.primary}
-          />
-        </View>
+        <Loading />
       ) : (
         <ScrollView>
           <View style={styles.parent}>
@@ -91,10 +84,5 @@ export default function MenuProducts({route, navigation}) {
 const styles = StyleSheet.create({
   parent: {
     margin: 10,
-  },
-  loadingContainer: {
-    height: Dimensions.get('window').height,
-    backgroundColor: 'white',
-    justifyContent: 'center',
   },
 });

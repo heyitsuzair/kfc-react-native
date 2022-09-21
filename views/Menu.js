@@ -11,8 +11,7 @@ import MenuItem from '../components/MenuItem';
 import axios from 'axios';
 import {getAllCats} from '../utils/apis';
 import Container from 'toastify-react-native';
-import {ActivityIndicator} from 'react-native-paper';
-import colors from '../colors';
+import Loading from '../components/Loading';
 
 export default function Menu({navigation}) {
   // state for categories
@@ -63,13 +62,7 @@ export default function Menu({navigation}) {
         <Text style={styles.header.text}>Menu</Text>
       </View>
       {loading === true ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator
-            size="large"
-            animating={true}
-            color={colors.primary}
-          />
-        </View>
+        <Loading />
       ) : (
         <FlatList
           data={categories}
@@ -115,10 +108,5 @@ const styles = StyleSheet.create({
   },
   parent: {
     margin: 15,
-  },
-  loadingContainer: {
-    height: Dimensions.get('window').height,
-    backgroundColor: 'white',
-    justifyContent: 'center',
   },
 });

@@ -3,7 +3,7 @@ import {List} from 'react-native-paper';
 import AddonItem from './AddonItem';
 import {View} from 'react-native';
 
-const MyComponent = () => {
+const index = () => {
   const [expanded, setExpanded] = React.useState(false);
 
   const handlePress = () => setExpanded(!expanded);
@@ -36,4 +36,4 @@ const MyComponent = () => {
   );
 };
 
-export default MyComponent;
+export default index;

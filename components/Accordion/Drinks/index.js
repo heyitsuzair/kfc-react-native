@@ -4,24 +4,28 @@ import DrinkItem from './DrinkItem';
 import {Text, View} from 'react-native';
 import colors from '../../../colors';
 
-const MyComponent = () => {
+const index = ({softDrinks}) => {
   const [expanded, setExpanded] = React.useState(true);
 
   const handlePress = () => setExpanded(!expanded);
 
   // selected drink state
-  const [selectedDrink, setSelectedDrink] = React.useState({
-    value: 'Pepsi',
-    index: '1',
-    quantity: 1,
-  });
+  const [selectedDrink, setSelectedDrink] = React.useState(null);
 
   // handle when someone clicks on radio button
-  const handleOnPressDrink = (index, value, quantity) => {
+  const handleOnPressDrink = (index, drink, quantity) => {
     // set the incoming drink as active
-    setSelectedDrink({value, index, quantity});
+    setSelectedDrink({drink: drink, index, quantity});
     setExpanded(false);
   };
+
+  React.useEffect(() => {
+    if (softDrinks.length < 1) {
+      return;
+    } else {
+      setSelectedDrink({drink: softDrinks[0], index: 0, quantity: 1});
+    }
+  }, [softDrinks]);
 
   return (
     <List.Section title="">
@@ -30,7 +34,7 @@ const MyComponent = () => {
           <View
             style={{flexDirection: 'row', alignItems: 'center', height: 25}}>
             <Text style={{color: colors.primary, fontWeight: '700'}}>
-              {selectedDrink.value}
+              {selectedDrink === null ? 'Loading...' : selectedDrink.drink.name}
             </Text>
             <List.Icon
               icon={`chevron-${expanded === true ? 'up' : 'down'}`}
@@ -43,39 +47,20 @@ const MyComponent = () => {
         titleStyle={{fontFamily: 'Poppins-Light', color: 'black'}}
         style={{backgroundColor: 'white'}}
         onPress={handlePress}>
-        <DrinkItem
-          index="1"
-          selectedDrink={selectedDrink}
-          handleOnPressDrink={handleOnPressDrink}
-        />
-        <DrinkItem
-          index="2"
-          selectedDrink={selectedDrink}
-          handleOnPressDrink={handleOnPressDrink}
-        />
-        <DrinkItem
-          index="3"
-          selectedDrink={selectedDrink}
-          handleOnPressDrink={handleOnPressDrink}
-        />
-        <DrinkItem
-          index="4"
-          selectedDrink={selectedDrink}
-          handleOnPressDrink={handleOnPressDrink}
-        />
-        <DrinkItem
-          index="5"
-          selectedDrink={selectedDrink}
-          handleOnPressDrink={handleOnPressDrink}
-        />
-        <DrinkItem
-          index="6"
-          selectedDrink={selectedDrink}
-          handleOnPressDrink={handleOnPressDrink}
-        />
+        {softDrinks.map((drink, index) => {
+          return (
+            <DrinkItem
+              index={index}
+              drink={drink}
+              key={index}
+              selectedDrink={selectedDrink}
+              handleOnPressDrink={handleOnPressDrink}
+            />
+          );
+        })}
       </List.Accordion>
     </List.Section>
   );
 };
 
-export default MyComponent;
+export default index;
