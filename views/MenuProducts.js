@@ -11,6 +11,9 @@ export default function MenuProducts({route, navigation}) {
   // state for category products
   const [products, setProducts] = useState(null);
 
+  // state for midnight, if midnight is true than allow the user to add items from "Midnight" category else dont allow him to add
+  const [isMidnight, setIsMidnight] = useState(true);
+
   // state for loading
   const [loading, setLoading] = useState(true);
 
@@ -18,12 +21,14 @@ export default function MenuProducts({route, navigation}) {
     if (route.params.title === 'Midnight') {
       const getHour = new Date().getHours();
       if (getHour > 2) {
-        navigation.goBack();
-        Toast.warn('Available From 12AM To 2AM Only!');
+        setIsMidnight(false);
+        getCategoryProducts();
       } else {
         getCategoryProducts();
+        setIsMidnight(true);
       }
     } else {
+      setIsMidnight(true);
       getCategoryProducts();
       return;
     }
@@ -71,7 +76,12 @@ export default function MenuProducts({route, navigation}) {
           <View style={styles.parent}>
             {products.map((prod, index) => {
               return (
-                <Card key={index} prod={prod} handleOnPress={handleOnPress} />
+                <Card
+                  key={index}
+                  isMidnight={isMidnight}
+                  prod={prod}
+                  handleOnPress={handleOnPress}
+                />
               );
             })}
           </View>

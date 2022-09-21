@@ -8,7 +8,7 @@ import {
   Button,
   Pressable,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import DrinkAccordion from '../components/Accordion/Drinks/index';
 import AddonAccordion from '../components/Accordion/Addons/index';
@@ -19,10 +19,26 @@ import Container from 'toastify-react-native';
 import axios from 'axios';
 import {getAddons, getProductInfo, getSoftDrinks} from '../utils/apis';
 import Loading from '../components/Loading';
+import cartContext from '../context/cart/CartContext';
+import addonContext from '../context/addon/AddonContext';
+import SoftdrinkContext from '../context/softdrinks/SoftdrinkContext';
 
 export default function SingleProduct({navigation, route}) {
+  // context to add product
+  const {addToCart, cartItems} = useContext(cartContext);
+
+  // context to get addons quantity
+  const {addonQuantity, setAddonQuantity} = useContext(addonContext);
+
+  // context to get softDrinks quantity
+  const {softDrinkQuantity, setSoftDrinkQuantity} =
+    useContext(SoftdrinkContext);
+
   // state to hold product info
   const [product, setProduct] = useState([]);
+
+  // state to check whether product is already in cart or not
+  const [isInCart, setIsInCart] = useState(false);
 
   // state to hold addons
   const [addons, setAddons] = useState([]);
@@ -33,6 +49,9 @@ export default function SingleProduct({navigation, route}) {
   // loading state
   const [loading, setLoading] = useState(true);
 
+  // current quantity for this product
+  const [quantity, setQuantity] = useState(1);
+
   // when someone presses cross
   const handleOnPress = () => {
     // navigate the person back to the screen from where it came
@@ -40,16 +59,27 @@ export default function SingleProduct({navigation, route}) {
   };
 
   // handle when someone presses add to cart
-  const addToCart = () => {
-    alert('hello');
+  const addProdToCart = () => {
+    addToCart({
+      product: {
+        price: product.price,
+        title: product.name,
+        id: product._id,
+        src: product.prodImg,
+      },
+      quantity: quantity,
+      addons: addonQuantity,
+      softDrinks: softDrinkQuantity,
+      prod_id: product._id,
+    });
   };
 
   // handle when someone clicks on plus or minus
   const handleQuantity = condition => {
     if (condition === '+') {
-      alert('Plus');
+      setQuantity(quantity + 1);
     } else {
-      alert('Minus');
+      return quantity === 1 ? true : setQuantity(quantity - 1);
     }
   };
 
@@ -86,9 +116,27 @@ export default function SingleProduct({navigation, route}) {
     }
   };
 
+  // check if already exists, if yes than show "Go To Cart" Button Instead Of "Add To Cart"
+  const checkExists = () => {
+    const filter = cartItems.filter(item => {
+      return item.prod_id === product._id;
+    });
+    if (filter.length > 0) {
+      setIsInCart(true);
+    } else {
+      setIsInCart(false);
+    }
+  };
+
   useEffect(() => {
     getProdInfo(route.params.prodId);
+    setSoftDrinkQuantity([]);
+    setAddonQuantity([]);
   }, []);
+
+  useEffect(() => {
+    checkExists();
+  }, [cartItems]);
 
   return (
     <>
@@ -145,15 +193,25 @@ export default function SingleProduct({navigation, route}) {
                 <List.Icon icon="minus" color={colors.primary} />
               </Pressable>
               <Text icon="minus" color={colors.primary}>
-                1
+                {quantity}
               </Text>
               <Pressable onPress={() => handleQuantity('+')}>
                 <List.Icon icon="plus" color={colors.primary} />
               </Pressable>
             </View>
-            <Pressable style={styles.addToCart} onPress={() => addToCart()}>
-              <Text style={styles.addToCartText}>Add To Cart</Text>
-            </Pressable>
+            {isInCart === true ? (
+              <Pressable
+                style={styles.addToCart}
+                onPress={() => navigation.navigate('bucket')}>
+                <Text style={styles.addToCartText}>Go To Bucket</Text>
+              </Pressable>
+            ) : (
+              <Pressable
+                style={styles.addToCart}
+                onPress={() => addProdToCart()}>
+                <Text style={styles.addToCartText}>Add To Bucket</Text>
+              </Pressable>
+            )}
           </View>
         </>
       )}

@@ -10,72 +10,77 @@ import React, {useContext} from 'react';
 import colors from '../colors';
 import BucketItem from '../components/Cards/Bucket';
 import authContext from '../context/auth/AuthContext';
+import cartContext from '../context/cart/CartContext';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function Bucket({navigation}) {
-  // location state to check whether location is select or not and according to condition show the button in fixed bar
+  // location state to check whether location is selected or not and according to condition show the buttons in fixed bar
   const {location, city} = useContext(authContext);
+
+  // check whether cart?bucket is empty or have anything
+  const {cartItems} = useContext(cartContext);
 
   return (
     <>
-      {/* <View style={styles.empty}>
-        <MaterialCommunityIcons name="bucket-outline" size={100} />
-        <Text style={styles.emptyText}>
-          Hungry? Add Something To Your Bucket!!!
-        </Text>
-        <Pressable
-          onPress={() => navigation.navigate('menu')}
-          style={styles.emptyPressable}>
-          <Text style={styles.pressableText}>START YOUR ORDER</Text>
-        </Pressable>
-      </View> */}
-      <View style={styles.header}>
-        <Text style={styles.header.text}>Your Bucket - 1 ITEM(S)</Text>
-      </View>
-      <ScrollView
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}>
-        <View>
-          <Text style={styles.delivery}>Delivery Fee Of PKR 50 Will Apply</Text>
-        </View>
-        <View style={styles.scrollView}>
-          <BucketItem navigation={navigation} />
-          <BucketItem navigation={navigation} />
-          <BucketItem navigation={navigation} />
-          <BucketItem navigation={navigation} />
-          <BucketItem navigation={navigation} />
-          <BucketItem navigation={navigation} />
-          <BucketItem navigation={navigation} />
-          <BucketItem navigation={navigation} />
-          <BucketItem navigation={navigation} />
-          <BucketItem navigation={navigation} />
-          <BucketItem navigation={navigation} />
-          <BucketItem navigation={navigation} />
-          <BucketItem navigation={navigation} />
-          <BucketItem navigation={navigation} />
-        </View>
-      </ScrollView>
-      <View style={styles.fixedBar}>
-        <View>
-          <Text style={styles.finish}>Finish It With Something Else</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.fixedBarText}>Total</Text>
-          <Text style={styles.fixedBarText}>PKR 3000</Text>
-        </View>
-        {location === null || city.name === null ? (
+      {cartItems.length < 1 ? (
+        <View style={styles.empty}>
+          <MaterialCommunityIcons name="bucket-outline" size={100} />
+          <Text style={styles.emptyText}>
+            Hungry? Add Something To Your Bucket!!!
+          </Text>
           <Pressable
-            onPress={() => navigation.navigate('Location')}
-            style={styles.pressable}>
-            <Text style={styles.fixedBarBtn}>SELECT DELIVERY AREA</Text>
+            onPress={() => navigation.navigate('menu')}
+            style={styles.emptyPressable}>
+            <Text style={styles.pressableText}>START YOUR ORDER</Text>
           </Pressable>
-        ) : (
-          <Pressable
-            onPress={() => navigation.navigate('checkout')}
-            style={styles.pressable}>
-            <Text style={styles.fixedBarBtn}>CHECKOUT</Text>
-          </Pressable>
-        )}
-      </View>
+        </View>
+      ) : (
+        <>
+          <View style={styles.header}>
+            <Text style={styles.header.text}>
+              Your Bucket - {cartItems.length} ITEM(S)
+            </Text>
+          </View>
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}>
+            <View>
+              <Text style={styles.delivery}>
+                Delivery Fee Of PKR 50 Will Apply
+              </Text>
+            </View>
+            <View style={styles.scrollView}>
+              {cartItems.map((item, index) => {
+                return (
+                  <BucketItem key={index} prod={item} navigation={navigation} />
+                );
+              })}
+            </View>
+          </ScrollView>
+          <View style={styles.fixedBar}>
+            <View>
+              <Text style={styles.finish}>Finish It With Something Else</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.fixedBarText}>Total</Text>
+              <Text style={styles.fixedBarText}>PKR 3000</Text>
+            </View>
+            {location === null || city.name === null ? (
+              <Pressable
+                onPress={() => navigation.navigate('Location')}
+                style={styles.pressable}>
+                <Text style={styles.fixedBarBtn}>SELECT DELIVERY AREA</Text>
+              </Pressable>
+            ) : (
+              <Pressable
+                onPress={() => navigation.navigate('checkout')}
+                style={styles.pressable}>
+                <Text style={styles.fixedBarBtn}>CHECKOUT</Text>
+              </Pressable>
+            )}
+          </View>
+        </>
+      )}
     </>
   );
 }

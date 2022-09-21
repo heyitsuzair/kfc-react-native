@@ -9,14 +9,28 @@ import {
 import React from 'react';
 import colors from '../../../colors';
 
-export default function index({handleOnPress, prod}) {
+export default function index({handleOnPress, prod, isMidnight}) {
   return (
-    <Pressable style={styles.parent} onPress={() => handleOnPress(prod._id)}>
+    <Pressable
+      style={styles.parent}
+      onPress={() => {
+        if (isMidnight === false) {
+          return;
+        } else {
+          handleOnPress(prod._id);
+        }
+      }}>
       <Image style={styles.img} source={{uri: prod.prodImg}} />
       <Text style={styles.text}>{prod.name}</Text>
       <View style={styles.info}>
-        <Text style={styles.price}>PKR {prod.price}</Text>
-        <Text style={styles.orderNow}>Order</Text>
+        {isMidnight === false ? (
+          <Text style={styles.available}>Available From 12AM To 2AM</Text>
+        ) : (
+          <>
+            <Text style={styles.orderNow}>Order</Text>
+            <Text style={styles.price}>PKR {prod.price}</Text>
+          </>
+        )}
       </View>
     </Pressable>
   );
@@ -58,6 +72,13 @@ const styles = StyleSheet.create({
   },
   orderNow: {
     width: Dimensions.get('window').width / 2.13,
+    textAlign: 'center',
+    color: 'white',
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 17,
+  },
+  available: {
+    width: Dimensions.get('window').width,
     textAlign: 'center',
     color: 'white',
     fontFamily: 'Poppins-SemiBold',

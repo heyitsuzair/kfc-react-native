@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Home from '../views/Home';
 import Menu from '../views/Menu';
 import Bucket from '../views/Bucket';
@@ -8,7 +8,11 @@ const Tab = createMaterialBottomTabNavigator();
 
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import cartContext from '../context/cart/CartContext';
 export default function Tabs() {
+  // use the following context to get no items in cart/bucket
+  const {cartItems} = useContext(cartContext);
+
   return (
     <Tab.Navigator
       barStyle={{
@@ -41,7 +45,7 @@ export default function Tabs() {
         name="bucket"
         options={{
           title: 'Your Bucket',
-          tabBarBadge: '2',
+          tabBarBadge: [cartItems.length],
           tabBarLabel: 'Bucket',
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons

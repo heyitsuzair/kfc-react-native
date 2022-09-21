@@ -10,7 +10,7 @@ import React, {useEffect, useState} from 'react';
 import MenuItem from '../components/MenuItem';
 import axios from 'axios';
 import {getAllCats} from '../utils/apis';
-import Container from 'toastify-react-native';
+import Container, {Toast} from 'toastify-react-native';
 import Loading from '../components/Loading';
 
 export default function Menu({navigation}) {
@@ -71,23 +71,6 @@ export default function Menu({navigation}) {
             <MenuItem item={item} handleMenuPress={handleMenuPress} />
           )}
         />
-        // <ScrollView
-        //   style={styles.parent}
-        //   showsVerticalScrollIndicator={false}
-        //   showsHorizontalScrollIndicator={false}>
-
-        //   <MenuItem handleMenuPress={handleMenuPress} />
-        //   <MenuItem handleMenuPress={handleMenuPress} />
-        //   <MenuItem handleMenuPress={handleMenuPress} />
-        //   <MenuItem handleMenuPress={handleMenuPress} />
-        //   <MenuItem handleMenuPress={handleMenuPress} />
-        //   <MenuItem handleMenuPress={handleMenuPress} />
-        //   <MenuItem handleMenuPress={handleMenuPress} />
-        //   <MenuItem handleMenuPress={handleMenuPress} />
-        //   <MenuItem handleMenuPress={handleMenuPress} />
-        //   <MenuItem handleMenuPress={handleMenuPress} />
-        //   <MenuItem handleMenuPress={handleMenuPress} />
-        // </ScrollView>
       )}
     </View>
   );

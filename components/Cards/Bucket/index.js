@@ -2,28 +2,25 @@ import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function index({navigation}) {
+export default function index({navigation, prod}) {
   return (
     <Pressable
       onPress={() => navigation.navigate('bucketItemInfo')}
       style={styles.parent}>
       <View style={styles.leftSide}>
-        <Image
-          source={require('../../../assets/images/deal1.png')}
-          style={styles.img}
-        />
+        <Image source={{uri: prod.product.src}} style={styles.img} />
         <View style={styles.info}>
           <Text adjustsFontSizeToFit numberOfLines={1} style={styles.title}>
-            Krunch Burger
+            {prod.product.title}
           </Text>
           <Text style={styles.quantity} adjustsFontSizeToFit numberOfLines={1}>
-            4 x PKR 460
+            {prod.quantity} x PKR {prod.product.price}
           </Text>
         </View>
       </View>
       <View style={styles.rightSide}>
         <Text style={styles.totalPrice} adjustsFontSizeToFit numberOfLines={1}>
-          PKR 1840
+          PKR {prod.product.price * prod.quantity}
         </Text>
         <Icon name="chevron-right" size={30} />
       </View>
