@@ -16,14 +16,16 @@ import MainNav from './navigation/index';
 
 const App = () => {
   return (
-    <AuthState>
-      <AddonState>
-        <CartState>
-          <StatusBar backgroundColor={colors.primary} />
-          <MainNav />
-        </CartState>
-      </AddonState>
-    </AuthState>
+    <>
+      <AuthState>
+        <AddonState>
+          <CartState>
+            <StatusBar backgroundColor={colors.primary} />
+            <MainNav />
+          </CartState>
+        </AddonState>
+      </AuthState>
+    </>
   );
 };
 

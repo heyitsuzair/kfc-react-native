@@ -84,7 +84,17 @@ export default function stackNav() {
             component={SelectArea}
           />
           <Stack.Screen
-            options={{headerShown: true}}
+            options={({navigation}) => ({
+              headerShown: true,
+              headerRight: () => (
+                <Icon
+                  name="location-pin"
+                  onPress={() => navigation.navigate('Location')}
+                  size={30}
+                  color={colors.primary}
+                />
+              ),
+            })}
             name="payment"
             component={Payment}
           />
