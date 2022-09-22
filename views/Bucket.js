@@ -18,7 +18,7 @@ export default function Bucket({navigation}) {
   const {location, city} = useContext(authContext);
 
   // check whether cart?bucket is empty or have anything
-  const {cartItems} = useContext(cartContext);
+  const {cartItems, totalAmount} = useContext(cartContext);
 
   return (
     <>
@@ -63,7 +63,7 @@ export default function Bucket({navigation}) {
             </View>
             <View style={styles.row}>
               <Text style={styles.fixedBarText}>Total</Text>
-              <Text style={styles.fixedBarText}>PKR 3000</Text>
+              <Text style={styles.fixedBarText}>PKR {totalAmount}</Text>
             </View>
             {location === null || city.name === null ? (
               <Pressable
