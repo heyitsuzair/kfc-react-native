@@ -29,9 +29,23 @@ export default function authState({children}) {
     Toast.success('Product Added!');
   };
 
+  const updateCartItem = (prod_id, quantity, condition) => {
+    let amount = totalAmount;
+    const findProd = cartItems.find(item => item.prod_id === prod_id);
+    // setting new quantity of product
+    findProd.quantity = quantity;
+    if (condition === '+') {
+      amount += findProd.product.price;
+      setTotalAmount(amount);
+    } else {
+      amount -= findProd.product.price;
+      setTotalAmount(amount);
+    }
+  };
+
   return (
     <CartContext.Provider
-      value={{cartItems, setCartItems, addToCart, totalAmount}}>
+      value={{cartItems, setCartItems, addToCart, totalAmount, updateCartItem}}>
       {children}
     </CartContext.Provider>
   );

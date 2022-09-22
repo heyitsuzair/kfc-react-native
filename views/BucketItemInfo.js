@@ -15,8 +15,8 @@ import cartContext from '../context/cart/CartContext';
 import Loading from '../components/Loading';
 
 export default function BucketItemInfo({navigation, route}) {
-  // following context  to get cartItems and filter the specific one that is coming through "prodId" params
-  const {cartItems, setCartItems} = useContext(cartContext);
+  // following context to get cartItems and filter the specific one that is coming through "prodId" params
+  const {cartItems, setCartItems, updateCartItem} = useContext(cartContext);
 
   // state for loading
   const [loading, setLoading] = useState(true);
@@ -36,9 +36,19 @@ export default function BucketItemInfo({navigation, route}) {
   // handle when someone clicks on plus or minus
   const handleQuantity = condition => {
     if (condition === '+') {
-      alert('Plus');
+      const newQuantity = quantity + 1;
+      setQuantity(newQuantity);
+
+      updateCartItem(item.prod_id, newQuantity, '+');
     } else {
-      alert('Minus');
+      if (quantity === 1) {
+        return;
+      } else {
+        const newQuantity = quantity - 1;
+        setQuantity(newQuantity);
+
+        updateCartItem(item.prod_id, newQuantity, '-');
+      }
     }
   };
 
