@@ -63,6 +63,34 @@ export default function Home({navigation}) {
             />
           </Pressable>
         </View>
+        <View style={styles.cards}>
+          <Pressable
+            onPress={() =>
+              navigation.navigate('singleProduct', {
+                prodId: '630cc53fe5464563995c6b77',
+              })
+            }>
+            <Image
+              style={styles.cardImg}
+              source={{
+                uri: 'https://res.cloudinary.com/digaxe3sc/image/upload/v1661781310/kfc-clone/valecu3rml42ehnc2vsz.png',
+              }}
+            />
+          </Pressable>
+          <Pressable
+            onPress={() =>
+              navigation.navigate('singleProduct', {
+                prodId: '630cbe5ce5464563995c6a42',
+              })
+            }>
+            <Image
+              style={styles.cardImg}
+              source={{
+                uri: 'https://res.cloudinary.com/digaxe3sc/image/upload/v1661779548/kfc-clone/cxj9ryo4kpgojhezfn9a.png',
+              }}
+            />
+          </Pressable>
+        </View>
       </View>
     </ScrollView>
   );
