@@ -16,7 +16,7 @@ import Loading from '../components/Loading';
 
 export default function BucketItemInfo({navigation, route}) {
   // following context  to get cartItems and filter the specific one that is coming through "prodId" params
-  const {cartItems} = useContext(cartContext);
+  const {cartItems, setCartItems} = useContext(cartContext);
 
   // state for loading
   const [loading, setLoading] = useState(true);
@@ -24,15 +24,13 @@ export default function BucketItemInfo({navigation, route}) {
   // state to item info
   const [item, setItem] = useState(null);
 
+  // state to hold product quantity
+  const [quantity, setQuantity] = useState(1);
+
   // when someone presses cross
   const handleOnPress = () => {
     // navigate the person back to the screen from where it came
     navigation.goBack();
-  };
-
-  // handle when someone presses add to cart
-  const updateItem = () => {
-    alert('hello');
   };
 
   // handle when someone clicks on plus or minus
@@ -46,7 +44,12 @@ export default function BucketItemInfo({navigation, route}) {
 
   // handle when someone clicks on remove
   const handleRemove = () => {
-    alert('Remove');
+    navigation.goBack();
+    // filter the product and set the filtered products to "cartItems"
+    const filter = cartItems.filter(item => {
+      return item.prod_id !== route.params.prodId;
+    });
+    setCartItems(filter);
   };
 
   // get the info of product from "cartItems" that is incoming from "prodId" parameter
@@ -55,12 +58,14 @@ export default function BucketItemInfo({navigation, route}) {
       return item.prod_id === route.params.prodId;
     });
     setItem(filter[0]);
+
+    setQuantity(filter[0].quantity);
     setLoading(false);
   };
 
   useEffect(() => {
     getItemInfo();
-  }, [route.params.prodId, cartItems]);
+  }, [route.params.prodId]);
 
   return (
     <>
@@ -99,6 +104,21 @@ export default function BucketItemInfo({navigation, route}) {
                   PKR {item.product.price * item.quantity}
                 </Text>
               </View>
+
+              <View style={styles.addonsRow}>
+                {item.addons.length > 0
+                  ? item.addons.map((item, index) => {
+                      return (
+                        <View style={styles.addonsInner} key={index}>
+                          <Text>
+                            {item.addon.name} x {item.quantity}
+                          </Text>
+                          <Text>PKR {item.addon.price * item.quantity}</Text>
+                        </View>
+                      );
+                    })
+                  : ''}
+              </View>
               <View style={styles.addonsRow}>
                 <View style={styles.addonsInner}>
                   <Text>
@@ -122,13 +142,15 @@ export default function BucketItemInfo({navigation, route}) {
                 <List.Icon icon="minus" color={colors.primary} />
               </Pressable>
               <Text icon="minus" color={colors.primary}>
-                1
+                {quantity}
               </Text>
               <Pressable onPress={() => handleQuantity('+')}>
                 <List.Icon icon="plus" color={colors.primary} />
               </Pressable>
             </View>
-            <Pressable style={styles.addToCart} onPress={() => updateItem()}>
+            <Pressable
+              style={styles.addToCart}
+              onPress={() => navigation.goBack()}>
               <Text style={styles.addToCartText}>Update</Text>
             </Pressable>
           </View>
