@@ -94,7 +94,7 @@ export default function DeliveryArea({navigation}) {
         />
       ) : (
         <>
-          <Icon name="location-pin" size={200} color={colors.primary} />
+          <Icon name="location-pin" size={150} color={colors.primary} />
           <Text style={styles.title}>KFC</Text>
           <Text style={styles.findOutlet}>Lets Find An Outlet Near You</Text>
           <Pressable

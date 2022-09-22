@@ -66,7 +66,7 @@ export default function MenuProducts({route, navigation}) {
       <Container
         duration={2000}
         width={Dimensions.get('window').width - 80}
-        height={100}
+        height={70}
         position="top"
       />
       {loading === true ? (

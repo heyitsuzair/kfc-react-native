@@ -86,7 +86,7 @@ export default function Payment({navigation}) {
         <Container
           duration={2000}
           width={Dimensions.get('window').width - 100}
-          height={100}
+          height={70}
           position="top"
         />
       </View>

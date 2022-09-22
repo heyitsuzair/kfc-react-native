@@ -42,12 +42,12 @@ export default function Menu({navigation}) {
   }, []);
 
   return (
-    <View>
+    <>
       <View>
         <Container
           duration={2000}
           width={Dimensions.get('window').width - 100}
-          height={100}
+          height={70}
           position="top"
         />
       </View>
@@ -57,23 +57,19 @@ export default function Menu({navigation}) {
       {loading === true ? (
         <Loading />
       ) : (
-        <View style={styles.parent}>
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={{marginBottom: 50}}>
-            {categories.map((item, index) => {
-              return (
-                <MenuItem
-                  item={item}
-                  key={index}
-                  handleMenuPress={handleMenuPress}
-                />
-              );
-            })}
-          </ScrollView>
-        </View>
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.parent}>
+          {categories.map((item, index) => {
+            return (
+              <MenuItem
+                item={item}
+                key={index}
+                handleMenuPress={handleMenuPress}
+              />
+            );
+          })}
+        </ScrollView>
       )}
-    </View>
+    </>
   );
 }
 
