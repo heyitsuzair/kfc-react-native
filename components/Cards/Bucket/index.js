@@ -26,7 +26,7 @@ export default function index({navigation, prod}) {
         <Text style={styles.totalPrice} adjustsFontSizeToFit numberOfLines={1}>
           PKR {prod.product.price * prod.quantity}
         </Text>
-        <Icon name="chevron-right" size={30} />
+        <Icon name="chevron-right" size={25} />
       </View>
     </Pressable>
   );
@@ -57,13 +57,13 @@ const styles = StyleSheet.create({
   totalPrice: {
     color: 'black',
     fontFamily: 'Poppins-SemiBold',
-    fontSize: 19,
+    paddingTop: 6,
   },
   quantity: {
     fontFamily: 'Poppins-Medium',
   },
   rightSide: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
 });
