@@ -19,6 +19,7 @@ export default function index({
         status={selectedPayment === index ? 'checked' : 'unchecked'}
         value={value}
         color={colors.primary}
+        onPress={() => handlePress(index, value)}
       />
     </Pressable>
   );

@@ -3,7 +3,7 @@ import authContext from './AuthContext';
 
 export default function authState({children}) {
   //state for sign in user
-  const [user, setUser] = useState('null');
+  const [user, setUser] = useState(null);
 
   // state for city
   const [city, setCity] = useState({name: null, lon: null, lat: null});

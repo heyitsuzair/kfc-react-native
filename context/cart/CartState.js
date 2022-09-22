@@ -22,7 +22,9 @@ export default function authState({children}) {
     });
 
     // adding softDrinks price by multiplying its price by quantity
-    amount += item.softDrinks.quantity * item.softDrinks.drink.price;
+    item.softDrinks.forEach(element => {
+      amount += element.quantity * element.softDrink.price;
+    });
 
     // setting total amount to state after adding all
     setTotalAmount(amount);
@@ -59,9 +61,10 @@ export default function authState({children}) {
     prod.addons.forEach(element => {
       amount -= element.quantity * element.addon.price;
     });
-
-    // removing softDrinks price by multiplying its price by quantity
-    amount -= prod.softDrinks.quantity * prod.softDrinks.drink.price;
+    // removing softDrinks price in total amount by multiplying its price by quantity
+    prod.softDrinks.forEach(element => {
+      amount -= element.quantity * element.softDrink.price;
+    });
 
     // setting total amount to state
     setTotalAmount(amount);
@@ -76,6 +79,7 @@ export default function authState({children}) {
         totalAmount,
         updateCartItem,
         deleteCartItem,
+        setTotalAmount,
       }}>
       {children}
     </CartContext.Provider>

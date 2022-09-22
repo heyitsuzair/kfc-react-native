@@ -28,21 +28,38 @@ export default function Home({navigation}) {
         />
       </View>
       <View>
-        <Image
-          source={require('../assets/images/deal1.png')}
-          style={styles.img}
-        />
+        <Pressable
+          onPress={() => navigation.navigate('tabs', {screen: 'menu'})}>
+          <Image
+            source={require('../assets/images/deal1.png')}
+            style={styles.img}
+          />
+        </Pressable>
         <View style={styles.cards}>
-          <Pressable onPress={() => navigation.navigate('singleProduct')}>
+          <Pressable
+            onPress={() =>
+              navigation.navigate('singleProduct', {
+                prodId: '630cc24ce5464563995c6ac9',
+              })
+            }>
             <Image
               style={styles.cardImg}
-              source={require('../assets/images/deal1.png')}
+              source={{
+                uri: 'https://res.cloudinary.com/digaxe3sc/image/upload/v1661780556/kfc-clone/rv4bfp4lrpfjgcefn28q.png',
+              }}
             />
           </Pressable>
-          <Pressable onPress={() => navigation.navigate('singleProduct')}>
+          <Pressable
+            onPress={() =>
+              navigation.navigate('singleProduct', {
+                prodId: '630cc390e5464563995c6ae4',
+              })
+            }>
             <Image
               style={styles.cardImg}
-              source={require('../assets/images/deal1.png')}
+              source={{
+                uri: 'https://res.cloudinary.com/digaxe3sc/image/upload/v1661780880/kfc-clone/pu7y50x9rdmldwnwfhsq.png',
+              }}
             />
           </Pressable>
         </View>

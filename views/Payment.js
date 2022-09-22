@@ -13,10 +13,17 @@ import colors from '../colors';
 import Radio from '../components/Radio';
 import {Toast} from 'toastify-react-native';
 import Container from 'toastify-react-native';
+import cartContext from '../context/cart/CartContext';
+import axios from 'axios';
+import {placeOrder} from '../utils/apis';
 
 export default function Payment({navigation}) {
   // get user info
   const {user, location, phoneNo} = useContext(authContext);
+
+  // following context to get cart info
+  const {totalAmount, cartItems, setCartItems, setTotalAmount} =
+    useContext(cartContext);
 
   // state for selected payment option
   const [selectedPayment, setSelectedPayment] = useState({
@@ -28,9 +35,30 @@ export default function Payment({navigation}) {
   const [isPlaced, setIsPlaced] = useState(false);
 
   // handle when someone clicks on "place order"
-  const handlePlaceOrder = () => {
-    Toast.success('Order Placed!');
-    setIsPlaced(true);
+  const handlePlaceOrder = async () => {
+    try {
+      //add delivery charges in amount
+
+      let total = totalAmount + 50;
+      // call the api and save the order in mongodb
+      const dataToSend = {
+        product: cartItems,
+        email: user.email,
+        amount: total,
+        totalItems: cartItems.length,
+        stripeData: [],
+        payment_method: selectedPayment.value,
+        address: location,
+        phone_no: phoneNo,
+      };
+      const {data} = await axios.post(placeOrder, dataToSend);
+      setIsPlaced(true);
+      setCartItems([]);
+      setTotalAmount(0);
+      Toast.success('Order Placed!');
+    } catch (error) {
+      console.warn(error);
+    }
   };
 
   // handle when someone presses radio
@@ -41,7 +69,7 @@ export default function Payment({navigation}) {
   useEffect(() => {
     // setting the custom title of header
     navigation.setOptions({
-      title: 'PKR 600',
+      title: 'PKR ' + totalAmount,
       headerShown: isPlaced === true ? false : true,
     });
     // check if order is placed, if true than prevent it from going back

@@ -21,7 +21,7 @@ const index = ({softDrinks}) => {
     // set the incoming drink as active
     setSelectedDrink({drink: drink, index, quantity});
     setExpanded(false);
-    setSoftDrinkQuantity({drink: drink, quantity: 1});
+    setSoftDrinkQuantity([{softDrink: drink, quantity: 1}]);
   };
 
   React.useEffect(() => {
@@ -29,7 +29,7 @@ const index = ({softDrinks}) => {
       return;
     } else {
       setSelectedDrink({drink: softDrinks[0], index: 0, quantity: 1});
-      setSoftDrinkQuantity({drink: softDrinks[0], quantity: 1});
+      setSoftDrinkQuantity([{softDrink: softDrinks[0], quantity: 1}]);
     }
   }, [softDrinks]);
 

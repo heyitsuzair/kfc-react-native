@@ -128,10 +128,13 @@ export default function BucketItemInfo({navigation, route}) {
               <View style={styles.addonsRow}>
                 <View style={styles.addonsInner}>
                   <Text>
-                    {item.softDrinks.drink.name} x {item.softDrinks.quantity}
+                    {item.softDrinks[0].softDrink.name} x{' '}
+                    {item.softDrinks[0].quantity}
                   </Text>
                   <Text>
-                    PKR {item.softDrinks.drink.price * item.softDrinks.quantity}
+                    PKR{' '}
+                    {item.softDrinks[0].softDrink.price *
+                      item.softDrinks[0].quantity}
                   </Text>
                 </View>
               </View>
