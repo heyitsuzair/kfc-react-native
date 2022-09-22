@@ -34,6 +34,7 @@ export default function authState({children}) {
     const findProd = cartItems.find(item => item.prod_id === prod_id);
     // setting new quantity of product
     findProd.quantity = quantity;
+    // check condition and according to condition add or subtract amount
     if (condition === '+') {
       amount += findProd.product.price;
       setTotalAmount(amount);
@@ -43,9 +44,39 @@ export default function authState({children}) {
     }
   };
 
+  const deleteCartItem = prod => {
+    // filter the product and set the filtered products to "cartItems"
+    const filter = cartItems.filter(item => {
+      return item.prod_id !== prod.prod_id;
+    });
+    setCartItems(filter);
+
+    let amount = totalAmount;
+    // removing product price in total amount by multiplying its price by quantity
+    amount -= prod.quantity * prod.product.price;
+
+    // removing addons price in total amount by multiplying its price by quantity
+    prod.addons.forEach(element => {
+      amount -= element.quantity * element.addon.price;
+    });
+
+    // removing softDrinks price by multiplying its price by quantity
+    amount -= prod.softDrinks.quantity * prod.softDrinks.drink.price;
+
+    // setting total amount to state
+    setTotalAmount(amount);
+  };
+
   return (
     <CartContext.Provider
-      value={{cartItems, setCartItems, addToCart, totalAmount, updateCartItem}}>
+      value={{
+        cartItems,
+        setCartItems,
+        addToCart,
+        totalAmount,
+        updateCartItem,
+        deleteCartItem,
+      }}>
       {children}
     </CartContext.Provider>
   );

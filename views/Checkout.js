@@ -5,10 +5,14 @@ import authContext from '../context/auth/AuthContext';
 import colors from '../colors';
 import {Toast} from 'toastify-react-native';
 import Container from 'toastify-react-native';
+import cartContext from '../context/cart/CartContext';
 
 export default function Checkout({navigation}) {
   // get user info
   const {user, location, phoneNo, setPhoneNo} = useContext(authContext);
+
+  // following context to get cart/bucket info
+  const {totalAmount} = useContext(cartContext);
 
   // handle when someone clicks on "continue to payment"
   const handleContinue = () => {
@@ -27,7 +31,7 @@ export default function Checkout({navigation}) {
   useEffect(() => {
     // Set the custom title of header
     navigation.setOptions({
-      title: 'PKR 600',
+      title: 'PKR ' + totalAmount,
     });
   }, []);
 

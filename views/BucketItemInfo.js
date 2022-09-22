@@ -16,7 +16,7 @@ import Loading from '../components/Loading';
 
 export default function BucketItemInfo({navigation, route}) {
   // following context to get cartItems and filter the specific one that is coming through "prodId" params
-  const {cartItems, setCartItems, updateCartItem} = useContext(cartContext);
+  const {cartItems, deleteCartItem, updateCartItem} = useContext(cartContext);
 
   // state for loading
   const [loading, setLoading] = useState(true);
@@ -38,7 +38,7 @@ export default function BucketItemInfo({navigation, route}) {
     if (condition === '+') {
       const newQuantity = quantity + 1;
       setQuantity(newQuantity);
-
+      // calling "updateCartItem" function in cartState
       updateCartItem(item.prod_id, newQuantity, '+');
     } else {
       if (quantity === 1) {
@@ -46,7 +46,7 @@ export default function BucketItemInfo({navigation, route}) {
       } else {
         const newQuantity = quantity - 1;
         setQuantity(newQuantity);
-
+        // calling "updateCartItem" function in cartState
         updateCartItem(item.prod_id, newQuantity, '-');
       }
     }
@@ -55,11 +55,7 @@ export default function BucketItemInfo({navigation, route}) {
   // handle when someone clicks on remove
   const handleRemove = () => {
     navigation.goBack();
-    // filter the product and set the filtered products to "cartItems"
-    const filter = cartItems.filter(item => {
-      return item.prod_id !== route.params.prodId;
-    });
-    setCartItems(filter);
+    deleteCartItem(item);
   };
 
   // get the info of product from "cartItems" that is incoming from "prodId" parameter
