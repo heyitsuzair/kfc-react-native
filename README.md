@@ -1,1 +1,1 @@
-This mobile app is under development by Muhammad Uzair Using React Native, MongoDB, Express And Node js
+This project is developed by Muhammad Uzair Using React Native,MongoDB,Express Js And Node js .Its Final Release Is Availbale At https://drive.google.com/file/d/1giinlDKOl6WC21wvbpllDz1ns8W7xe5O/view?usp=sharing Made With ❤️ By Uzair
