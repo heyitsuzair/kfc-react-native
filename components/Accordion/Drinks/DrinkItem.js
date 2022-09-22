@@ -15,6 +15,7 @@ export default function DrinkItem({
         style={styles.inner}
         onPress={() => handleOnPressDrink(index, drink, 1)}>
         <RadioButton
+          onPress={() => handleOnPressDrink(index, drink, 1)}
           color={colors.primary}
           status={
             selectedDrink === null
