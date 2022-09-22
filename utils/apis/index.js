@@ -1,4 +1,4 @@
-const server = 'http://localhost:5000/api/';
+const server = 'https://kfc-mern-uzair.vercel.app/api/';
 export const getAllCats = server + 'cat/getCat';
 export const getCatProducts = server + 'product/getCatProds';
 export const getProductInfo = server + 'product/getProd';
