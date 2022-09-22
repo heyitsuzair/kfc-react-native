@@ -79,7 +79,7 @@ export default function Auth({navigation}) {
               name="google"
               style={{backgroundColor: 'white', borderRadius: 50, padding: 10}}
               color={colors.primary}
-              size={25}
+              size={20}
             />
           }
         />
