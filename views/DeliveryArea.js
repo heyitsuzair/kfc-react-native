@@ -108,8 +108,8 @@ export default function DeliveryArea({navigation}) {
           <Pressable
             onPress={() => navigation.navigate('selectArea')}
             style={styles.row}>
-            <Text style={styles.city} adjustsFontSizeToFit numberOfLines={1}>
-              {location === null ? 'Area' : location.slice(0, 22) + '...'}
+            <Text style={styles.city}>
+              {location === null ? 'Area' : location.slice(0, 15) + '...'}
             </Text>
             <FontAwesome name="caret-down" />
           </Pressable>

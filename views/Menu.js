@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Dimensions,
-  FlatList,
-} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, Dimensions} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import MenuItem from '../components/MenuItem';
 import axios from 'axios';
@@ -64,13 +57,21 @@ export default function Menu({navigation}) {
       {loading === true ? (
         <Loading />
       ) : (
-        <FlatList
-          data={categories}
-          style={styles.parent}
-          renderItem={({item, index, separators}) => (
-            <MenuItem item={item} handleMenuPress={handleMenuPress} />
-          )}
-        />
+        <View style={styles.parent}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{marginBottom: 50}}>
+            {categories.map((item, index) => {
+              return (
+                <MenuItem
+                  item={item}
+                  key={index}
+                  handleMenuPress={handleMenuPress}
+                />
+              );
+            })}
+          </ScrollView>
+        </View>
       )}
     </View>
   );
